@@ -1,0 +1,40 @@
+<mat-toolbar color = "primary">
+  <span class = "icon">
+    <a routerLink = "/"><mat-icon>home</mat-icon></a>
+  </span>
+  <span class = "icon">
+    <a ><mat-icon>add_shopping_cart</mat-icon></a>
+  </span>
+    <span class = "spacer"></span>
+  <ul>
+    <li>
+      <button mat-button [matMenuTriggerFor]="menu_customer">MY_ACCOUNT</button>
+      <mat-menu #menu_customer="matMenu">
+        <button mat-menu-item>My Orders</button>
+        <button mat-menu-item>Logout</button>
+      </mat-menu>
+    </li>
+    <li>
+      <button mat-button [matMenuTriggerFor]="menu_shopkeeper">MY_ACCOUNT</button>
+      <mat-menu #menu_shopkeeper="matMenu">
+        <button mat-menu-item>Manage Products</button>
+        <button mat-menu-item>Orders</button>
+        <button mat-menu-item>Logout</button>
+      </mat-menu>
+    </li>
+    <li>
+      <button mat-button [matMenuTriggerFor]="login">Login</button>
+      <mat-menu #login="matMenu">
+        <a routerLink = "/login_customer"><button mat-menu-item>Login as Customer</button></a>
+        <a routerLink = "/login_shopkeeper"><button mat-menu-item>Login as Shopkeeper</button></a>
+      </mat-menu>
+    </li>
+    <li>
+      <button mat-button [matMenuTriggerFor]="signup">Signup</button>
+      <mat-menu #signup="matMenu">
+        <a routerLink = "/signup_customer"><button mat-menu-item>Signup as Customer</button></a>
+        <a routerLink = "/signup_shopkeeper"><button mat-menu-item>Signup as Shopkeeper</button></a>
+      </mat-menu>
+    </li>
+  </ul>
+</mat-toolbar>

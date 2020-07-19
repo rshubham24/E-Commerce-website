@@ -8,29 +8,29 @@
     <span class = "spacer"></span>
   <ul>
     <li>
-      <button mat-button [matMenuTriggerFor]="menu_customer">MY_ACCOUNT</button>
+      <button mat-button [matMenuTriggerFor]="menu_customer" *ngIf = "customerIsAuthenticated">MY_ACCOUNT</button>
       <mat-menu #menu_customer="matMenu">
         <button mat-menu-item>My Orders</button>
-        <button mat-menu-item>Logout</button>
+        <button mat-menu-item (click) = "onLogout()">Logout</button>
       </mat-menu>
     </li>
     <li>
-      <button mat-button [matMenuTriggerFor]="menu_shopkeeper">MY_ACCOUNT</button>
-      <mat-menu #menu_shopkeeper="matMenu">
+      <button mat-button [matMenuTriggerFor]="menu_retailer"  *ngIf = "retailerIsAuthenticated">MY_ACCOUNT</button>
+      <mat-menu #menu_retailer="matMenu">
         <button mat-menu-item>Manage Products</button>
         <button mat-menu-item>Orders</button>
-        <button mat-menu-item>Logout</button>
+        <button mat-menu-item (click) = "onLogout()" >Logout</button>
       </mat-menu>
     </li>
     <li>
-      <button mat-button [matMenuTriggerFor]="login">Login</button>
+      <button mat-button [matMenuTriggerFor]="login" *ngIf = "!customerIsAuthenticated && !retailerIsAuthenticated">Login</button>
       <mat-menu #login="matMenu">
         <a routerLink = "/login_customer"><button mat-menu-item>Login as Customer</button></a>
         <a routerLink = "/login_retailer"><button mat-menu-item>Login as Retailer</button></a>
       </mat-menu>
     </li>
     <li>
-      <button mat-button [matMenuTriggerFor]="signup">Signup</button>
+      <button mat-button [matMenuTriggerFor]="signup" *ngIf = "!customerIsAuthenticated && !retailerIsAuthenticated">Signup</button>
       <mat-menu #signup="matMenu">
         <a routerLink = "/signup_customer"><button mat-menu-item>Signup as Customer</button></a>
         <a routerLink = "/signup_retailer"><button mat-menu-item>Signup as Retailer</button></a>

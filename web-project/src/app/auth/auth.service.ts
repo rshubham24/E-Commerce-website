@@ -8,11 +8,14 @@ import { Subject } from 'rxjs';
 @Injectable({ providedIn: "root" })
 
 export class AuthService {
-  private isAuthenticated = false;
+  private customerIsAuthenticated = false;
+  private retailerIsAuthenticated = false;
   private token: string;
   private userId: string;
   private tokenTimer: any;
-  private authStatusListener = new Subject<boolean>();
+  private who: string;
+  private authCustomerListener = new Subject<boolean>();
+  private authRetailerListener = new Subject<boolean>();
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -20,16 +23,24 @@ export class AuthService {
     return this.token;
   }
 
-  getIsAuth(){
-    return this.isAuthenticated;
+  getCustomerAuth() {
+    return this.customerIsAuthenticated;
+  }
+
+  getRetailerAuth() {
+    return this.retailerIsAuthenticated;
   }
 
   getUserId() {
     return this.userId;
   }
 
-  getAuthStatusListener() {
-    return this.authStatusListener.asObservable();
+  getAuthCustomerListener() {
+    return this.authCustomerListener.asObservable();
+  }
+
+  getAuthRetailerListener() {
+    return this.authRetailerListener.asObservable();
   }
 
   createRetailer(fullName: string, shopName: string, mobile: string, email: string, password: string) {
@@ -71,17 +82,18 @@ export class AuthService {
         if(token){
           const expiresInDuration = response.expiresIn;
           this.setAuthTimer(expiresInDuration);
-          this.isAuthenticated = true;
+          this.retailerIsAuthenticated = true;
           this.userId = response.userId;
-          this.authStatusListener.next(true);
+          this.authRetailerListener.next(true);
+          this.who = "retailer";
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration*1000);
-          this.saveAuthData(token, expirationDate, this.userId);
+          this.saveAuthData(token, expirationDate, this.userId, this.who);
           console.log("loginSuccessfull");
           this.router.navigate(['/']);
         }
       }, error => {
-        this.authStatusListener.next(false);
+        this.authRetailerListener.next(false);
       });
   }
 
@@ -94,17 +106,18 @@ export class AuthService {
         if(token){
           const expiresInDuration = response.expiresIn;
           this.setAuthTimer(expiresInDuration);
-          this.isAuthenticated = true;
+          this.customerIsAuthenticated = true;
           this.userId = response.userId;
-          this.authStatusListener.next(true);
+          this.who = "customer";
+          this.authCustomerListener.next(true);
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration*1000);
-          this.saveAuthData(token, expirationDate, this.userId);
+          this.saveAuthData(token, expirationDate, this.userId, this.who);
           console.log("loginSuccessfull");
           this.router.navigate(['/']);
         }
       }, error => {
-        this.authStatusListener.next(false);
+        this.authCustomerListener.next(false);
       });
   }
 
@@ -116,8 +129,10 @@ export class AuthService {
 
   logout() {
     this.token = null;
-    this.isAuthenticated = false;
-    this.authStatusListener.next(false);
+    this.customerIsAuthenticated = false;
+    this.retailerIsAuthenticated = false;
+    this.authRetailerListener.next(false);
+    this.authCustomerListener.next(false);
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
     this.userId = null;
@@ -128,6 +143,7 @@ export class AuthService {
     localStorage.removeItem("token");
     localStorage.removeItem("expiration");
     localStorage.removeItem("userId");
+    localStorage.removeItem("who");
   }
 
   autoAuthUser() {
@@ -139,10 +155,19 @@ export class AuthService {
     const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
     if (expiresIn > 0) {
       this.token = authInformation.token;
-      this.isAuthenticated = true;
+      const who = authInformation.who;
+      if(who === "customer"){
+        this.customerIsAuthenticated = true;
+        this.authCustomerListener.next(true);
+        this.authRetailerListener.next(false);
+      }
+      else{
+        this.retailerIsAuthenticated = true;
+        this.authRetailerListener.next(true);
+        this.authCustomerListener.next(false);
+      }
       this.userId = authInformation.userId;
       this.setAuthTimer(expiresIn / 1000);
-      this.authStatusListener.next(true);
     }
   }
 
@@ -150,20 +175,23 @@ export class AuthService {
     const token = localStorage.getItem("token");
     const expirationDate = localStorage.getItem("expiration");
     const userId = localStorage.getItem("userId");
+    const who = localStorage.getItem("who");
     if(!token && !expirationDate) {
       return;
     }
     return {
       token: token,
       expirationDate: new Date(expirationDate),
-      userId: userId
+      userId: userId,
+      who: who
     };
   }
 
-  private saveAuthData(token: string, expirationDate: Date, userId: string) {
+  private saveAuthData(token: string, expirationDate: Date, userId: string, who: string) {
     localStorage.setItem("token", token);
     localStorage.setItem("expiration", expirationDate.toISOString());
     localStorage.setItem("userId", userId);
+    localStorage.setItem("who", who);
   }
 
 }

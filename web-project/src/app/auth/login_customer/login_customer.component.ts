@@ -25,7 +25,7 @@ export class LoginCustomerComponent implements OnInit, OnDestroy{
   constructor(public authService: AuthService ) {}
 
   ngOnInit() {
-    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(
+    this.authStatusSub = this.authService.getAuthCustomerListener().subscribe(
       authStatus => {
         this.isLoading = false;
       }

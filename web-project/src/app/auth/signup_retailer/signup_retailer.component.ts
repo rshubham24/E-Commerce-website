@@ -25,7 +25,7 @@ export class SignupRetailerComponent implements OnInit, OnDestroy{
   constructor(public authService: AuthService) {}
 
   ngOnInit() {
-    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(
+    this.authStatusSub = this.authService.getAuthRetailerListener().subscribe(
       authStatus => {
         this.isLoading = false;
       }

@@ -24,7 +24,7 @@ exports.createUserRetailer = (req, res, next) => {
         .catch(err => {
           res.status(500).json({
               message: "Invalid authentication credentials!"
-          })
+          });
         });
     });
 };
@@ -48,7 +48,7 @@ exports.createUserCustomer = (req, res, next) => {
         .catch(err => {
           res.status(500).json({
               message: "Invalid authentication credentials!"
-          })
+          });
         });
     });
 };

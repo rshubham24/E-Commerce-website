@@ -22,8 +22,9 @@ import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { CommonModule } from '@angular/common';
 import { LoginCustomerComponent } from './auth/login_customer/login_customer.component';
-import { LoginShopkeeperComponent } from './auth/login_shopkeeper/login_shopkeeper.component';
-import { SignupShopkeeperComponent } from './auth/signup_shopkeeper/signup_shopkeeper.component';
+import { LoginRetailerComponent } from './auth/login_retailer/login_retailer.component';
+import { SignupRetailerComponent } from './auth/signup_retailer/signup_retailer.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -33,8 +34,8 @@ import { SignupShopkeeperComponent } from './auth/signup_shopkeeper/signup_shopk
     HomeComponent,
     SignupCustomerComponent,
     LoginCustomerComponent,
-    LoginShopkeeperComponent,
-    SignupShopkeeperComponent
+    LoginRetailerComponent,
+    SignupRetailerComponent
   ],
   imports: [
     BrowserModule,
@@ -47,6 +48,7 @@ import { SignupShopkeeperComponent } from './auth/signup_shopkeeper/signup_shopk
     MatToolbarModule,
     BrowserAnimationsModule,
     MatExpansionModule,
+    HttpClientModule,
     MatFormFieldModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,

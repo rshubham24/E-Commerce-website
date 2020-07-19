@@ -1,14 +1,14 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  templateUrl: './login_customer.component.html',
-  styleUrls: ['./login_customer.component.css']
+  templateUrl: './signup_retailer.component.html',
+  styleUrls: ['./signup_retailer.component.css']
 })
 
-export class LoginCustomerComponent implements OnInit, OnDestroy{
+export class SignupRetailerComponent implements OnInit, OnDestroy{
   showPassword = false;
   isLoading = false;
   private authStatusSub: Subscription;
@@ -22,7 +22,7 @@ export class LoginCustomerComponent implements OnInit, OnDestroy{
     }
   }
 
-  constructor(public authService: AuthService ) {}
+  constructor(public authService: AuthService) {}
 
   ngOnInit() {
     this.authStatusSub = this.authService.getAuthStatusListener().subscribe(
@@ -32,15 +32,17 @@ export class LoginCustomerComponent implements OnInit, OnDestroy{
     );
   }
 
-  onLogin(form: NgForm){
+  onSignup(form: NgForm){
     if(form.invalid){
       return;
     }
     this.isLoading = true;
-    this.authService.loginCustomer(
+    this.authService.createRetailer(
+      form.value.fullName,
+      form.value.shopName,
+      form.value.mobile,
       form.value.email,
-      form.value.password
-    )
+      form.value.password);
   }
 
   ngOnDestroy() {

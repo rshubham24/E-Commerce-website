@@ -1,5 +1,6 @@
 <mat-card>
-  <form (submit) = "onSignup(signup_shopkeeperForm)" #signup_shopkeeperForm = "ngForm">
+  <mat-spinner [diameter] = "70" *ngIf="isLoading"></mat-spinner>
+  <form (submit) = "onSignup(signup_retailerForm)" #signup_retailerForm = "ngForm" *ngIf = "!isLoading">
     <mat-form-field>
       <input
         matInput
@@ -16,13 +17,13 @@
       <input
         matInput
         type = "text"
-        name = "companyName"
+        name = "shopName"
         ngModel
-        placeholder = "Company Name"
-        #companyName = "ngModel"
+        placeholder = "Shop Name"
+        #shopName = "ngModel"
         required
         >
-      <mat-error *ngIf = "companyName.invalid">Please enter your name.</mat-error>
+      <mat-error *ngIf = "shopName.invalid">Please enter your name.</mat-error>
     </mat-form-field>
     <mat-form-field>
       <input

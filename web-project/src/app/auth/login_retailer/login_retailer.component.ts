@@ -36,7 +36,7 @@ export class LoginRetailerComponent implements OnDestroy, OnInit{
     if(form.invalid){
       return;
     }
-
+    this.isLoading = true;
     this.authService.loginRetailer(
       form.value.email,
       form.value.password

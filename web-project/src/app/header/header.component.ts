@@ -14,10 +14,13 @@ export class HeaderComponent implements OnInit, OnDestroy{
   retailerIsAuthenticated = false;
   private authCustomerListenerSub: Subscription;
   private authRetailerListenerSub: Subscription;
+  private authUserName: Subscription;
+  userName: string;
 
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
+    this.userName = localStorage.getItem("userName");
     this.customerIsAuthenticated = this.authService.getCustomerAuth();
     this.retailerIsAuthenticated = this.authService.getRetailerAuth();
     this.authCustomerListenerSub = this.authService.getAuthCustomerListener().subscribe(isAuthenticated => {
@@ -25,17 +28,19 @@ export class HeaderComponent implements OnInit, OnDestroy{
     });
     this.authRetailerListenerSub = this.authService.getAuthRetailerListener().subscribe(isAuthenticated => {
       this.retailerIsAuthenticated = isAuthenticated;
+    });
+    this.authUserName = this.authService.getUserName().subscribe(user => {
+      this.userName = user;
     })
   }
 
   onLogout() {
-    console.log("hi");
     this.authService.logout();
   }
 
   ngOnDestroy() {
     this.authCustomerListenerSub.unsubscribe();
-    this.authCustomerListenerSub.unsubscribe();
+    this.authRetailerListenerSub.unsubscribe();
   }
 
 }

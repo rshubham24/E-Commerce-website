@@ -27,15 +27,15 @@ import { LoginRetailerComponent } from './auth/login_retailer/login_retailer.com
 import { SignupRetailerComponent } from './auth/signup_retailer/signup_retailer.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ShoppingCartComponent } from './shopping_cart/shopping_cart.component';
-import { ManageOrdersComponent } from "./manage_orders/manage_orders.component";
-import { NewProductComponent } from "./new_product/new_product.component";
+import { ManageProductsComponent } from "./retailer/manage_products/manage_products.component";
+import { NewProductComponent } from "./retailer/new_product/new_product.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     HomeComponent,
-    ManageOrdersComponent,
+    ManageProductsComponent,
     SignupCustomerComponent,
     LoginCustomerComponent,
     LoginRetailerComponent,

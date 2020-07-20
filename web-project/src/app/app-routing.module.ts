@@ -6,8 +6,8 @@ import { LoginCustomerComponent } from './auth/login_customer/login_customer.com
 import { SignupRetailerComponent } from './auth/signup_retailer/signup_retailer.component';
 import { SignupCustomerComponent } from './auth/signup_customer/signup_customer.component';
 import { ShoppingCartComponent } from './shopping_cart/shopping_cart.component';
-import { ManageOrdersComponent } from './manage_orders/manage_orders.component';
-import { NewProductComponent } from './new_product/new_product.component';
+import { NewProductComponent } from './retailer/new_product/new_product.component';
+import { ManageProductsComponent } from './retailer/manage_products/manage_products.component';
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: "signup_retailer", component: SignupRetailerComponent },
   { path: "login_retailer", component: LoginRetailerComponent },
   { path: "shopping_cart", component: ShoppingCartComponent },
-  { path: "manage/:userId", component: ManageOrdersComponent },
+  { path: "manage/:userId", component: ManageProductsComponent },
   { path: "new", component: NewProductComponent }
 ];
 

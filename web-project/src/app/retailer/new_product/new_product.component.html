@@ -1,5 +1,11 @@
 <div>
   <mat-card>
+    <div class = "title">
+      <mat-card-header>
+        <mat-card-title>Add New Product</mat-card-title>
+      </mat-card-header>
+    </div>
+    <mat-card-content>
     <form (submit) = "onSave(newProduct)" #newProduct = "ngForm">
       <mat-form-field appearance="outline">
         <mat-label>Title</mat-label>
@@ -45,7 +51,7 @@
         <input
           matInput
           type = "url"
-          name = "image"
+          name = "imageUrl"
           ngModel
           #image = "ngModel"
           required
@@ -58,5 +64,6 @@
         class = "button"
         type="submit">Save</button>
     </form>
+  </mat-card-content>
   </mat-card>
 </div>

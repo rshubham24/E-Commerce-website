@@ -1,0 +1,62 @@
+<div>
+  <mat-card>
+    <form (submit) = "onSave(newProduct)" #newProduct = "ngForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Title</mat-label>
+        <input
+          matInput
+          type = "text"
+          name = "title"
+          ngModel
+          #title = "ngModel"
+          required
+          class = "align"
+        >
+        <mat-error *ngIf = "title.invalid">Please enter title.</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Price</mat-label>
+        <input
+          matInput
+          type = "number"
+          ngModel
+          name = "price"
+          #price = "ngModel"
+          required
+          class="align"
+        >
+        <span matPrefix class = "prefix">₹&nbsp;</span>
+        <mat-error *ngIf = "price.invalid">Please enter price.</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Category</mat-label>
+        <mat-select
+          required
+          ngModel
+          name = "category"
+          #category = "ngModel"
+          class = "align"
+        >
+          <mat-option *ngFor = "let c of Category" value = "{{ c }}">{{ c }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Image URL</mat-label>
+        <input
+          matInput
+          type = "url"
+          name = "image"
+          ngModel
+          #image = "ngModel"
+          required
+          class = "align"
+        >
+        <mat-error *ngIf = "image.invalid">Please enter correct image url.</mat-error>
+      </mat-form-field>
+      <button
+        mat-raised-button
+        class = "button"
+        type="submit">Save</button>
+    </form>
+  </mat-card>
+</div>

@@ -5,13 +5,19 @@ import { LoginRetailerComponent } from './auth/login_retailer/login_retailer.com
 import { LoginCustomerComponent } from './auth/login_customer/login_customer.component';
 import { SignupRetailerComponent } from './auth/signup_retailer/signup_retailer.component';
 import { SignupCustomerComponent } from './auth/signup_customer/signup_customer.component';
+import { ShoppingCartComponent } from './shopping_cart/shopping_cart.component';
+import { ManageOrdersComponent } from './manage_orders/manage_orders.component';
+import { NewProductComponent } from './new_product/new_product.component';
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
   { path: "signup_customer", component: SignupCustomerComponent },
   { path: "login_customer", component: LoginCustomerComponent },
   { path: "signup_retailer", component: SignupRetailerComponent },
-  { path: "login_retailer", component: LoginRetailerComponent }
+  { path: "login_retailer", component: LoginRetailerComponent },
+  { path: "shopping_cart", component: ShoppingCartComponent },
+  { path: "manage/:userId", component: ManageOrdersComponent },
+  { path: "new", component: NewProductComponent }
 ];
 
 @NgModule({

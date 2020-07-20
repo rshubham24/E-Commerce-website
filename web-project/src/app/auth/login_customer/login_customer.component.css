@@ -2,6 +2,11 @@ mat-form-field{
   width: 100%;
 }
 
+.button {
+  color: rgb(1, 66, 92);
+  background-color: rgba(198, 227, 240, 0.733);
+}
+
 mat-spinner {
   margin: auto;
 }

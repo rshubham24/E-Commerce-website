@@ -13,11 +13,14 @@ export class AuthService {
   private token: string;
   private userId: string;
   private tokenTimer: any;
+  private shopName: string;
   private userName: string;
   private authuserName = new Subject<string>();
   private who: string;
   private authCustomerListener = new Subject<boolean>();
   private authRetailerListener = new Subject<boolean>();
+  private authUserId = new Subject<string>();
+  private authShopName = new Subject<string>();
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -31,10 +34,6 @@ export class AuthService {
 
   getRetailerAuth() {
     return this.retailerIsAuthenticated;
-  }
-
-  getUserId() {
-    return this.userId;
   }
 
   getAuthCustomerListener() {
@@ -78,7 +77,7 @@ export class AuthService {
 
   loginRetailer(email: string, password: string) {
     const authData = {email: email, password: password};
-    this.http.post<{token: string, expiresIn: number, userId: string, userName: string}>("http://localhost:3000/api/user/login_retailer", authData)
+    this.http.post<{token: string, expiresIn: number, userId: string, userName: string, shopName}>("http://localhost:3000/api/user/login_retailer", authData)
       .subscribe(response => {
         const token = response.token;
         if(token){
@@ -86,18 +85,23 @@ export class AuthService {
           this.setAuthTimer(expiresInDuration);
           this.retailerIsAuthenticated = true;
           this.userId = response.userId;
+          this.shopName = response.shopName;
+          this.authShopName.next(response.shopName);
           this.userName = response.userName;
           this.authRetailerListener.next(true);
           this.authuserName.next(response.userName);
+          this.authUserId.next(response.userId);
           this.who = "retailer";
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration*1000);
-          this.saveAuthData(token, expirationDate, this.userId, this.who, this.userName);
-          console.log("loginSuccessfull");
+          this.saveAuthData(token, expirationDate, this.userId, this.who, this.userName, this.shopName);
+          console.log(this.userId);
           this.router.navigate(['/']);
         }
       }, error => {
         this.authuserName.next(null);
+        this.authUserId.next(null);
+        this.authShopName.next(null);
         this.authRetailerListener.next(false);
       });
   }
@@ -119,8 +123,7 @@ export class AuthService {
           const now = new Date();
           this.authuserName.next(response.userName);
           const expirationDate = new Date(now.getTime() + expiresInDuration*1000);
-          this.saveAuthData(token, expirationDate, this.userId, this.who, this.userName);
-          console.log("loginSuccessfull");
+          this.saveAuthData(token, expirationDate, this.userId, this.who, this.userName, null);
           this.router.navigate(['/']);
         }
       }, error => {
@@ -137,6 +140,14 @@ export class AuthService {
 
   getUserName(){
     return this.authuserName.asObservable();
+  }
+
+  getShopName(){
+    return this.authShopName.asObservable();
+  }
+
+  getUserId() {
+    return this.authUserId.asObservable();
   }
 
   logout() {
@@ -157,6 +168,7 @@ export class AuthService {
     localStorage.removeItem("userId");
     localStorage.removeItem("who");
     localStorage.removeItem("userName");
+    localStorage.removeItem("shopName");
   }
 
   autoAuthUser() {
@@ -200,12 +212,13 @@ export class AuthService {
     };
   }
 
-  private saveAuthData(token: string, expirationDate: Date, userId: string, who: string, userName: string) {
+  private saveAuthData(token: string, expirationDate: Date, userId: string, who: string, userName: string, shopName: string) {
     localStorage.setItem("token", token);
     localStorage.setItem("expiration", expirationDate.toISOString());
     localStorage.setItem("userId", userId);
     localStorage.setItem("who", who);
     localStorage.setItem("userName", userName);
+    localStorage.setItem("shopName", shopName);
   }
 
 }

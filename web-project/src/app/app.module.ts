@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule, MatIcon } from '@angular/material/icon';
+import {MatSelectModule} from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -25,17 +26,22 @@ import { LoginCustomerComponent } from './auth/login_customer/login_customer.com
 import { LoginRetailerComponent } from './auth/login_retailer/login_retailer.component';
 import { SignupRetailerComponent } from './auth/signup_retailer/signup_retailer.component';
 import { HttpClientModule } from '@angular/common/http';
-
+import { ShoppingCartComponent } from './shopping_cart/shopping_cart.component';
+import { ManageOrdersComponent } from "./manage_orders/manage_orders.component";
+import { NewProductComponent } from "./new_product/new_product.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     HomeComponent,
+    ManageOrdersComponent,
     SignupCustomerComponent,
     LoginCustomerComponent,
     LoginRetailerComponent,
-    SignupRetailerComponent
+    SignupRetailerComponent,
+    ShoppingCartComponent,
+    NewProductComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +52,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatDialogModule,
     MatInputModule,
     MatToolbarModule,
+    MatSelectModule,
     BrowserAnimationsModule,
     MatExpansionModule,
     HttpClientModule,

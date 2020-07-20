@@ -80,7 +80,8 @@ exports.loginRetailer = (req, res, next) => {
         token: token,
         expiresIn: 3600,
         userId: fetchedUser._id,
-        userName: fetchedUser.fullName
+        userName: fetchedUser.fullName,
+        shopName: fetchedUser.shopName
       });
     })
     .catch(err => {
@@ -117,7 +118,7 @@ exports.loginCustomer = (req, res, next) => {
         token: token,
         expiresIn: 3600,
         userId: fetchedUser._id,
-        userName: fetchedUser.fullName
+        userName: fetchedUser.fullName,
       });
     })
     .catch(err => {

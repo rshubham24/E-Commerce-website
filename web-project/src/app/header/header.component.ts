@@ -15,12 +15,15 @@ export class HeaderComponent implements OnInit, OnDestroy{
   private authCustomerListenerSub: Subscription;
   private authRetailerListenerSub: Subscription;
   private authUserName: Subscription;
+  private authUserId: Subscription;
   userName: string;
+  userId: string;
 
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
     this.userName = localStorage.getItem("userName");
+    this.userId = localStorage.getItem("userId");
     this.customerIsAuthenticated = this.authService.getCustomerAuth();
     this.retailerIsAuthenticated = this.authService.getRetailerAuth();
     this.authCustomerListenerSub = this.authService.getAuthCustomerListener().subscribe(isAuthenticated => {
@@ -32,6 +35,9 @@ export class HeaderComponent implements OnInit, OnDestroy{
     this.authUserName = this.authService.getUserName().subscribe(user => {
       this.userName = user;
     })
+    this.authUserId = this.authService.getUserId().subscribe(user => {
+      this.userId = user;
+    })
   }
 
   onLogout() {
@@ -41,6 +47,8 @@ export class HeaderComponent implements OnInit, OnDestroy{
   ngOnDestroy() {
     this.authCustomerListenerSub.unsubscribe();
     this.authRetailerListenerSub.unsubscribe();
+    this.authUserName.unsubscribe();
+    this.authUserId.unsubscribe();
   }
 
 }

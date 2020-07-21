@@ -26,8 +26,6 @@ export class NewProductComponent implements OnDestroy, OnInit{
     "Snacks",
     "Vegetables"
   ];
-  customerIsAuthenticated = false;
-  retailerIsAuthenticated = false;
   private authShopName: Subscription;
   private authUserId: Subscription;
   shopName: string;

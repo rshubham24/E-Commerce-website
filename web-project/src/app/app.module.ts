@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule, MatIcon } from '@angular/material/icon';
+import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSelectModule} from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -47,6 +48,7 @@ import { NewProductComponent } from "./retailer/new_product/new_product.componen
     BrowserModule,
     AppRoutingModule,
     MatButtonModule,
+    MatGridListModule,
     MatCardModule,
     CommonModule,
     MatDialogModule,

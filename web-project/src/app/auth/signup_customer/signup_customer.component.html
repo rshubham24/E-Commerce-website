@@ -1,6 +1,6 @@
-<mat-card>
-  <mat-spinner [diameter] = "70" *ngIf="isLoading"></mat-spinner>
-  <form (submit) = "onSignup(signupForm)" #signupForm = "ngForm" *ngIf = "!isLoading">
+<mat-spinner [diameter] = "70" *ngIf="isLoading"></mat-spinner>
+<mat-card style="border-radius: 15px; margin-left: 150px; margin-right: 150px;" *ngIf = "!isLoading">
+  <form (submit) = "onSignup(signupForm)" #signupForm = "ngForm">
     <mat-form-field>
       <input
         matInput

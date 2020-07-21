@@ -1,0 +1,21 @@
+.product {
+  width: 215px;
+  height: 300px;
+}
+
+mat-spinner {
+  margin: auto;
+}
+
+.image {
+  min-height: 150px;
+  max-height: 150px;
+  max-width: fit-content;
+}
+
+.button {
+  color: rgb(1, 66, 92);
+  background-color: rgba(198, 227, 240, 0.733);
+  text-align: center;
+}
+

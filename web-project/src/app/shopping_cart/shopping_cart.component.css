@@ -1,0 +1,74 @@
+button {
+  color: rgb(1, 66, 92);
+  background-color: rgba(198, 227, 240, 0.733);
+}
+
+mat-spinner {
+  margin: auto;
+}
+
+.available {
+  margin-top: 250px;
+  text-align: center;
+  font-weight: 400;
+  font-size: xx-large;
+}
+
+.clear {
+  margin-top: 30px;
+  margin-left: 80px;
+}
+
+.new {
+  margin-left: 100px;
+  padding-top: 20px;
+}
+
+table {
+  margin-top: 40px;
+  margin-left: 80px;
+  width: 88%;
+  font-weight: 30px;
+}
+
+table, th, td {
+  border: 3px solid rgb(1, 66, 92);
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 15px;
+}
+
+th {
+  background-color: rgba(54, 103, 126, 0.733);
+  text-align: left;
+}
+
+.editButton {
+  width: 100%;
+}
+
+.edit {
+  width: 15%;
+  text-align: center;
+}
+
+.quant {
+  width: 20%;
+}
+
+.add {
+  align-content: right;
+  color: rgb(1, 66, 92);
+  background-color: rgba(198, 227, 240, 0.733);
+}
+
+.delete {
+  color: rgb(1, 66, 92);
+  background-color: rgba(198, 227, 240, 0.733);
+}
+
+table {
+  border-spacing: 5px;
+}

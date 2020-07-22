@@ -29,11 +29,24 @@ export class ManageProductsComponent implements OnInit, OnDestroy{
     this.retailerService.getProductsList(this.userId);
     this.productsSub = this.retailerService.getProductUpdateListener()
       .subscribe((products: ProductModel[]) => {
-        console.log(products);
         this.products = products;
         this.isLoading = false;
       });
   }
+
+  onEdit(productId: string){
+    this.retailerService.editProduct(productId);
+  }
+
+  onDelete(productId: string) {
+    this.isLoading = true;
+    this.retailerService.deleteProduct(productId).subscribe(() => {
+      this.retailerService.getProductsList(this.userId);
+    }, () => {
+      this.isLoading = false;
+    });
+  }
+
 
   ngOnDestroy() {
     this.productsSub.unsubscribe();

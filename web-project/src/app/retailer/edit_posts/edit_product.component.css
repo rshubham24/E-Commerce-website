@@ -12,6 +12,10 @@ mat-form-field{
   font-size: 16px;
 }
 
+mat-spinner {
+  margin: auto;
+}
+
 .align {
   text-indent: 4px;
 }

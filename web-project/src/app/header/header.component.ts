@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
   userName: string;
   userId: string;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.userName = localStorage.getItem("userName");
@@ -38,6 +39,15 @@ export class HeaderComponent implements OnInit, OnDestroy{
     this.authUserId = this.authService.getUserId().subscribe(user => {
       this.userId = user;
     })
+  }
+
+  redirect(){
+    if(this.customerIsAuthenticated){
+      this.router.navigate(['/home/' + this.userId]);
+    }
+    else{
+      this.router.navigate(['/']);
+    }
   }
 
   onLogout() {

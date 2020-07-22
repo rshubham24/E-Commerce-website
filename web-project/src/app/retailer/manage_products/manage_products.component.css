@@ -1,9 +1,47 @@
-.button {
+button {
   color: rgb(1, 66, 92);
   background-color: rgba(198, 227, 240, 0.733);
+}
+
+mat-spinner {
+  margin: auto;
 }
 
 .new {
   margin-left: 100px;
   padding-top: 20px;
+}
+
+table {
+  margin-top: 40px;
+  margin-left: 100px;
+  width: 80%;
+  font-weight: 30px;
+}
+
+table, th, td {
+  border: 3px solid rgb(1, 66, 92);
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 15px;
+}
+
+th {
+  background-color: rgba(54, 103, 126, 0.733);
+  text-align: left;
+}
+
+.editButton {
+  width: 100px;
+}
+
+.edit {
+  width: 15%;
+  text-align: center;
+}
+
+table {
+  border-spacing: 5px;
 }

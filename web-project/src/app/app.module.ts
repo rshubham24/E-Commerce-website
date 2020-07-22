@@ -6,6 +6,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatTableModule} from '@angular/material/table';
 import { MatCardModule} from '@angular/material/card';
 import {MatMenuModule} from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
@@ -27,6 +28,7 @@ import { LoginCustomerComponent } from './auth/login_customer/login_customer.com
 import { LoginRetailerComponent } from './auth/login_retailer/login_retailer.component';
 import { SignupRetailerComponent } from './auth/signup_retailer/signup_retailer.component';
 import { HttpClientModule } from '@angular/common/http';
+import { EditProductComponent } from './retailer/edit_posts/edit_product.component';
 import { ShoppingCartComponent } from './shopping_cart/shopping_cart.component';
 import { ManageProductsComponent } from "./retailer/manage_products/manage_products.component";
 import { NewProductComponent } from "./retailer/new_product/new_product.component";
@@ -42,7 +44,8 @@ import { NewProductComponent } from "./retailer/new_product/new_product.componen
     LoginRetailerComponent,
     SignupRetailerComponent,
     ShoppingCartComponent,
-    NewProductComponent
+    NewProductComponent,
+    EditProductComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +60,7 @@ import { NewProductComponent } from "./retailer/new_product/new_product.componen
     MatSelectModule,
     BrowserAnimationsModule,
     MatExpansionModule,
+    MatTableModule,
     HttpClientModule,
     MatFormFieldModule,
     MatProgressSpinnerModule,

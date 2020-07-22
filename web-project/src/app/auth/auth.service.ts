@@ -123,7 +123,7 @@ export class AuthService {
           this.authuserName.next(response.userName);
           const expirationDate = new Date(now.getTime() + expiresInDuration*1000);
           this.saveAuthData(token, expirationDate, this.userId, this.who, this.userName, null);
-          this.router.navigate(['/']);
+          this.router.navigate(['/home/' + this.userId]);
         }
       }, error => {
         this.authuserName.next(null);

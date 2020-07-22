@@ -1,0 +1,67 @@
+<mat-spinner [diameter] = "70" *ngIf="isLoading"></mat-spinner>
+<mat-card style="border-radius: 15px; margin-right: 150px; margin-left: 150px;" *ngIf = "!isLoading">
+  <mat-card-header style="justify-content: center; padding-top: 8px; padding-bottom: 20px;">
+    <mat-card-title style="font-size: 40px;" >Edit Product</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form (submit) = "onUpdate(newProduct)" #newProduct = "ngForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Title</mat-label>
+        <input
+          matInput
+          type = "text"
+          name = "title"
+          [(ngModel)] = "product.title"
+          #title = "ngModel"
+          required
+          class = "align"
+        >
+        <mat-error *ngIf = "title.invalid">Please enter title.</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Price</mat-label>
+        <input
+          matInput
+          type = "number"
+          [(ngModel)] = "product.price"
+          name = "price"
+          #price = "ngModel"
+          required
+          class="align"
+        >
+        <span matPrefix class = "prefix">₹&nbsp;</span>
+        <mat-error *ngIf = "price.invalid">Please enter price.</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Category</mat-label>
+        <mat-select
+          required
+          [(ngModel)] = "product.category"
+          name = "category"
+          #category = "ngModel"
+          class = "align"
+        >
+          <mat-option *ngFor = "let c of Category" value = "{{ c }}">{{ c }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Image URL</mat-label>
+        <input
+          matInput
+          type = "url"
+          name = "imageUrl"
+          [(ngModel)] = "product.imageUrl"
+          #image = "ngModel"
+          required
+          class = "align"
+        >
+        <mat-error *ngIf = "image.invalid">Please enter correct image url.</mat-error>
+      </mat-form-field>
+      <button
+        mat-raised-button
+        style="border-radius: 5px;"
+        class = "button"
+        type="submit">Save</button>
+    </form>
+  </mat-card-content>
+</mat-card>

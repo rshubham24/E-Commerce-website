@@ -1,0 +1,23 @@
+<mat-spinner [diameter] = "70" *ngIf="isLoading"></mat-spinner>
+<p class = "available" *ngIf = "!isLoading && cartItems.length <= 0"> No Items Available in Cart! </p>
+<div *ngIf = "!isLoading && cartItems.length > 0" >
+  <table>
+    <tr>
+      <th style="width: 10%;">No.</th>
+      <th>Product</th>
+      <th>Price</th>
+      <th class = "quant">Quantity</th>
+      <th></th>
+    </tr>
+    <tr *ngFor="let item of cartItems; let i = index">
+      <td>{{ i+1 }}</td>
+      <td>{{ item.title }}</td>
+      <td>₹ {{ item.price*item.quantity }}</td>
+      <td><button mat-mini-fab style="margin-right: 50px;color: rgb(1, 66, 92);background-color: rgba(198, 227, 240, 0.733);"><mat-icon>remove</mat-icon></button>{{ item.quantity }}<button style="margin-left: 50px;color: rgb(1, 66, 92);background-color: rgba(198, 227, 240, 0.733);" mat-mini-fab><mat-icon>add</mat-icon></button></td>
+      <td class = "edit"><button class = "delete" mat-fab (click) = "onDelete(item.id)"><mat-icon>delete</mat-icon></button></td>
+    </tr>
+  </table>
+</div>
+<div class = "clear" *ngIf = "!isLoading && cartItems.length > 0"><button style="width: 150px; height: 45px" mat-button (click) = "clearCart()">Clear Cart</button></div>
+
+

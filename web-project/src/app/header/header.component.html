@@ -1,9 +1,9 @@
 <mat-toolbar>
   <span class = "icon">
-    <a routerLink = "/"><mat-icon>home</mat-icon></a>
+    <button (click) = "redirect()" class = "button" mat-button><mat-icon>home</mat-icon></button>
   </span>
   <span class = "icon">
-    <a routerLink = "/shopping_cart"><mat-icon>add_shopping_cart</mat-icon></a>
+    <a [routerLink] = "['/shopping_cart', userId]" *ngIf = "customerIsAuthenticated"><mat-icon>add_shopping_cart</mat-icon></a>
   </span>
     <span class = "spacer"></span>
   <ul>

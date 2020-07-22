@@ -1,3 +1,23 @@
-<div class = "new">
-  <a routerLink = "/new"><button class = "button" mat-button>New Product</button></a>
+<mat-spinner [diameter] = "70" *ngIf="isLoading"></mat-spinner>
+<div class = "new" *ngIf = "!isLoading">
+  <a routerLink = "/new"><button mat-button>New Product</button></a>
+</div>
+
+<div *ngIf = "!isLoading">
+  <table>
+    <tr>
+      <th style="width: 10%;">No.</th>
+      <th>Title</th>
+      <th>Price</th>
+      <th></th>
+      <th></th>
+    </tr>
+    <tr *ngFor="let prod of products; let i = index">
+      <td>{{ i+1 }}</td>
+      <td>{{ prod.title }}</td>
+      <td>₹ {{ prod.price }}</td>
+      <td class = "edit"><button style="color: rgb(1, 66, 92);background-color: rgba(198, 227, 240, 0.733);" mat-mini-fab (click) = "onEdit(prod.id)"><mat-icon>edit</mat-icon></button></td>
+      <td class = "edit"><button style="color: rgb(1, 66, 92);background-color: rgba(198, 227, 240, 0.733);" mat-mini-fab (click) = "onDelete(prod.id)"><mat-icon>delete</mat-icon></button></td>
+    </tr>
+  </table>
 </div>

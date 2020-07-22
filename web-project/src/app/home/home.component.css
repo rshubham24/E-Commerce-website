@@ -3,6 +3,10 @@
   height: 300px;
 }
 
+mat-card {
+border: 0.001px solid rgb(1, 66, 92);
+}
+
 mat-spinner {
   margin: auto;
 }

@@ -19,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { DialogElementsDialog } from './shopping_cart/shopping_cart.component';
 import { HeaderComponent } from './header/header.component';
 import { SignupCustomerComponent } from './auth/signup_customer/signup_customer.component';
 import { FormsModule } from '@angular/forms';
@@ -44,6 +45,7 @@ import { NewProductComponent } from "./retailer/new_product/new_product.componen
     LoginRetailerComponent,
     SignupRetailerComponent,
     ShoppingCartComponent,
+    DialogElementsDialog,
     NewProductComponent,
     EditProductComponent
   ],

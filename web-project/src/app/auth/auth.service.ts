@@ -4,6 +4,7 @@ import { AuthDataCustomer } from './auth-data-customer.model';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { state } from '@angular/animations';
 
 @Injectable({ providedIn: "root" })
 
@@ -15,6 +16,12 @@ export class AuthService {
   private tokenTimer: any;
   private shopName: string;
   private userName: string;
+  private streetAdress: string;
+  private city: string;
+  private state: string;
+  private country: string;
+  private pinCode: number;
+  private mobile: string;
   private authuserName = new Subject<string>();
   private who: string;
   private authCustomerListener = new Subject<boolean>();
@@ -60,13 +67,19 @@ export class AuthService {
     });
   }
 
-  createCustomer(fullName: string, mobile: string, email: string, password: string) {
+  createCustomer(fullName: string, mobile: string, email: string, password: string, streetAdress: string, city: string, state: string, country: string, pinCode: number) {
     const authDataCustomer: AuthDataCustomer = {
       fullName: fullName,
       mobile: mobile,
       email: email,
-      password: password
+      password: password,
+      streetAdress: streetAdress,
+      city: city,
+      state: state,
+      country: country,
+      pinCode: pinCode
     }
+    console.log(authDataCustomer);
     this.http.post("http://localhost:3000/api/user/signup_customer", authDataCustomer).subscribe(response => {
       console.log(response);
       this.router.navigate(['/login_customer']);
@@ -77,7 +90,7 @@ export class AuthService {
 
   loginRetailer(email: string, password: string) {
     const authData = {email: email, password: password};
-    this.http.post<{token: string, expiresIn: number, userId: string, userName: string, shopName}>("http://localhost:3000/api/user/login_retailer", authData)
+    this.http.post<{token: string, expiresIn: number, userId: string, userName: string, shopName: string}>("http://localhost:3000/api/user/login_retailer", authData)
       .subscribe(response => {
         const token = response.token;
         if(token){
@@ -94,7 +107,7 @@ export class AuthService {
           this.who = "retailer";
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration*1000);
-          this.saveAuthData(token, expirationDate, this.userId, this.who, this.userName, this.shopName);
+          this.saveAuthData(token, expirationDate, this.userId, this.who, this.userName, this.shopName, null, null, null, null, null, null);
           this.router.navigate(['/']);
         }
       }, error => {
@@ -108,7 +121,7 @@ export class AuthService {
 
   loginCustomer(email: string, password: string) {
     const authData = {email: email, password: password};
-    this.http.post<{token: string, expiresIn: number, userId: string, userName: string}>("http://localhost:3000/api/user/login_customer", authData)
+    this.http.post<{token: string, expiresIn: number, userId: string, userName: string, mobile: string, streetAdress: string, city: string, state: string, country: string, pinCode: number}>("http://localhost:3000/api/user/login_customer", authData)
       .subscribe(response => {
         const token = response.token;
         if(token){
@@ -118,11 +131,17 @@ export class AuthService {
           this.userId = response.userId;
           this.who = "customer";
           this.userName = response.userName;
+          this.mobile = response.mobile;
+          this.streetAdress = response.streetAdress;
+          this.city = response.city;
+          this.state = response.state;
+          this.country = response.country;
+          this.pinCode = response.pinCode;
           this.authCustomerListener.next(true);
           const now = new Date();
           this.authuserName.next(response.userName);
           const expirationDate = new Date(now.getTime() + expiresInDuration*1000);
-          this.saveAuthData(token, expirationDate, this.userId, this.who, this.userName, null);
+          this.saveAuthData(token, expirationDate, this.userId, this.who, this.userName, null, this.mobile, this.streetAdress, this.city, this.state, this.country, this.pinCode);
           this.router.navigate(['/home/' + this.userId]);
         }
       }, error => {
@@ -168,6 +187,12 @@ export class AuthService {
     localStorage.removeItem("who");
     localStorage.removeItem("userName");
     localStorage.removeItem("shopName");
+    localStorage.removeItem("mobile");
+    localStorage.removeItem("streetAdress");
+    localStorage.removeItem("city");
+    localStorage.removeItem("state");
+    localStorage.removeItem("country");
+    localStorage.removeItem("pinCode");
   }
 
   autoAuthUser() {
@@ -211,13 +236,19 @@ export class AuthService {
     };
   }
 
-  private saveAuthData(token: string, expirationDate: Date, userId: string, who: string, userName: string, shopName: string) {
+  private saveAuthData(token: string, expirationDate: Date, userId: string, who: string, userName: string, shopName: string, mobile: string, streetAdress: string, city: string, state: string, country: string, pinCode: number) {
     localStorage.setItem("token", token);
     localStorage.setItem("expiration", expirationDate.toISOString());
     localStorage.setItem("userId", userId);
     localStorage.setItem("who", who);
     localStorage.setItem("userName", userName);
     localStorage.setItem("shopName", shopName);
+    localStorage.setItem("mobile", mobile);
+    localStorage.setItem("streetAdress", streetAdress);
+    localStorage.setItem("city", city);
+    localStorage.setItem("state", state);
+    localStorage.setItem("country", country);
+    localStorage.setItem("pinCode", pinCode.toString());
   }
 
 }

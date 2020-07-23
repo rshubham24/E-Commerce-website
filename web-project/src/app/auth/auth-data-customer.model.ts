@@ -3,4 +3,9 @@ export interface AuthDataCustomer {
   mobile: string;
   email: string;
   password: string;
+  streetAdress: string;
+  city: string;
+  state: string;
+  country: string;
+  pinCode: number;
 }

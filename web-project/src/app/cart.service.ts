@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CartModel } from './shopping_cart.model';
 import { CartIdModel } from './cart_id.model';
+import { OrderModel } from './order.model';
 import { map } from 'rxjs/operators';
 import { Subject } from "rxjs";
 
@@ -10,7 +11,9 @@ import { Subject } from "rxjs";
 
 export class CartService {
   private cartItems: CartIdModel[] = [];
+  total = 0;
   private cartIdListener = new Subject<CartIdModel[]>();
+  private totalListener = new Subject<number>();
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -42,8 +45,39 @@ export class CartService {
       }))
       .subscribe(tranformedData => {
         this.cartItems = tranformedData;
+        var i;
+        this.total = 0;
+        for(i in this.cartItems) {
+          this.total = this.total + this.cartItems[i].quantity*this.cartItems[i].price;
+        }
+        this.totalListener.next(this.total);
         this.cartIdListener.next([...this.cartItems]);
       });
+  }
+
+  getTotal(){
+    return this.totalListener.asObservable();
+  }
+
+  updateItem(item: CartIdModel) {
+    this.http.put("http://localhost:3000/api/cart/update/" + item.id, item).subscribe(response => {
+      this.router.navigate(['/shopping_cart/' + item.customerId])
+    });
+  }
+
+  placeOrder(cartItems: CartIdModel[], mobile: string, streetAdress: string, city: string, state: string, country: string, pinCode: number) {
+    const order: OrderModel = {
+      customerId: cartItems[0].customerId,
+      customerName: localStorage.getItem("userName"),
+      mobile: mobile,
+      streetAdress: streetAdress,
+      city: city,
+      state: state,
+      country: country,
+      pinCode: pinCode,
+      products: cartItems
+    };
+    return this.http.post("http://localhost:3000/api/order/place", order);
   }
 
   deleteItem(productId: string){

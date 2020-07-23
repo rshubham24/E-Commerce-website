@@ -71,4 +71,27 @@ exports.deleteAllItem = (req, res, next) => {
   });
 };
 
-
+exports.updateItem = (req, res, next) => {
+  const item = new Cart({
+    _id: req.body.id,
+    title: req.body.title,
+    price: req.body.price,
+    category: req.body.category,
+    imageUrl: req.body.imageUrl,
+    retailerId: req.body.retailerId,
+    shopName: req.body.shopName,
+    productId: req.body.productId,
+    customerId: req.body.customerId,
+    quantity: req.body.quantity
+  });
+  Cart.updateOne({_id: req.params.id}, item).then(result => {
+    res.status(200).json({
+      message: "updated Successfully"
+    });
+  })
+  .catch(error => {
+    res.status(500).json({
+      message: "Couldn't update the product"
+    });
+  });
+};

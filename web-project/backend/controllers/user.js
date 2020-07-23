@@ -36,7 +36,12 @@ exports.createUserCustomer = (req, res, next) => {
         fullName: req.body.fullName,
         mobile: req.body.mobile,
         email: req.body.email,
-        password: hash
+        password: hash,
+        streetAdress: req.body.streetAdress,
+        city: req.body.city,
+        state: req.body.state,
+        country: req.body.country,
+        pinCode: req.body.pinCode
       });
       userCustomer.save()
         .then(result => {
@@ -119,6 +124,12 @@ exports.loginCustomer = (req, res, next) => {
         expiresIn: 3600,
         userId: fetchedUser._id,
         userName: fetchedUser.fullName,
+        mobile: fetchedUser.mobile,
+        streetAdress: fetchedUser.streetAdress,
+        city: fetchedUser.city,
+        state: fetchedUser.state,
+        country: fetchedUser.country,
+        pinCode: fetchedUser.pinCode
       });
     })
     .catch(err => {

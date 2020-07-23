@@ -55,6 +55,8 @@ export class HomeComponent implements OnInit, OnDestroy{
     this.cartService.addToCart(cartProd);
   }
 
+
+
   ngOnDestroy() {
     this.productsSub.unsubscribe();
   }

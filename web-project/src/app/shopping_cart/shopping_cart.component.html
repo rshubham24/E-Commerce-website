@@ -1,7 +1,7 @@
 <mat-spinner [diameter] = "70" *ngIf="isLoading"></mat-spinner>
 <p class = "available" *ngIf = "!isLoading && cartItems.length <= 0"> No Items Available in Cart! </p>
 <div *ngIf = "!isLoading && cartItems.length > 0" >
-  <table>
+  <table class = "main" >
     <tr>
       <th style="width: 10%;">No.</th>
       <th>Product</th>
@@ -12,12 +12,25 @@
     <tr *ngFor="let item of cartItems; let i = index">
       <td>{{ i+1 }}</td>
       <td>{{ item.title }}</td>
-      <td>₹ {{ item.price*item.quantity }}</td>
-      <td><button mat-mini-fab style="margin-right: 50px;color: rgb(1, 66, 92);background-color: rgba(198, 227, 240, 0.733);"><mat-icon>remove</mat-icon></button>{{ item.quantity }}<button style="margin-left: 50px;color: rgb(1, 66, 92);background-color: rgba(198, 227, 240, 0.733);" mat-mini-fab><mat-icon>add</mat-icon></button></td>
-      <td class = "edit"><button class = "delete" mat-fab (click) = "onDelete(item.id)"><mat-icon>delete</mat-icon></button></td>
+      <td total = "total+item.price*item.quantity">₹ {{ item.price*item.quantity }}</td>
+      <td><button (click) = "onUpdateMinus(item)" mat-mini-fab style="margin-right: 26%;color: rgb(1, 66, 92);background-color: rgba(198, 227, 240, 0.733);"><mat-icon>remove</mat-icon></button>{{ item.quantity }}<button (click) = "onUpdateAdd(item)" style="margin-left: 26%;color: rgb(1, 66, 92);background-color: rgba(198, 227, 240, 0.733);" mat-mini-fab><mat-icon>add</mat-icon></button></td>
+      <td class = "edit"><button class = "delete" mat-fab (click) = "onDelete(item)"><mat-icon>delete</mat-icon></button></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td style = "font-weight:1000">
+        Total
+      </td>
+      <td style = "font-weight:1000">
+        {{ total }}
+      </td>
     </tr>
   </table>
 </div>
-<div class = "clear" *ngIf = "!isLoading && cartItems.length > 0"><button style="width: 150px; height: 45px" mat-button (click) = "clearCart()">Clear Cart</button></div>
-
+<mat-card style="margin-top: 20px; margin-left: 68px; width: 50%; box-shadow: none;" *ngIf = "!isLoading && cartItems.length > 0" >
+    <button mat-raised-button (click) = "clearCart()" style ="margin-right: 40px; width: 30%; height: 45px">Clear Cart</button>
+    <button mat-raised-button style="width: 30%; height: 45px" (click) = "openDialog()">Place Order</button>
+</mat-card>
 

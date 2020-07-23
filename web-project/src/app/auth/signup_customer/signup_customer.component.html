@@ -52,6 +52,66 @@
         >
       <mat-error *ngIf = "passwordInput.invalid">Please enter a valid Password.</mat-error>
     </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type = "text"
+        name = "streetAdress"
+        ngModel
+        placeholder = "Street Adress"
+        #street_adress = "ngModel"
+        required
+        >
+      <mat-error *ngIf = "street_adress">Please enter your name.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type = "text"
+        name = "city"
+        ngModel
+        placeholder = "City"
+        #city = "ngModel"
+        required
+        >
+      <mat-error *ngIf = "city.invalid">Please enter city name.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type = "text"
+        name = "state"
+        ngModel
+        placeholder = "State"
+        #state = "ngModel"
+        required
+        >
+      <mat-error *ngIf = "state.invalid">Please enter state name.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type = "text"
+        name = "country"
+        ngModel
+        placeholder = "Country"
+        #country = "ngModel"
+        required
+        >
+      <mat-error *ngIf = "country.invalid">Please enter country name.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type = "number"
+        name = "pinCode"
+        ngModel
+        placeholder = "Pin Code"
+        #pinCode = "ngModel"
+        required
+        >
+      <mat-error *ngIf = "pinCode.invalid">Please enter valid pin code.</mat-error>
+    </mat-form-field>
     <section class="example-section">
       <mat-checkbox (change) = "showHiddenPassword($event)">Show Password</mat-checkbox>
     </section>

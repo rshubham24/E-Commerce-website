@@ -41,7 +41,13 @@ export class SignupCustomerComponent implements OnInit, OnDestroy{
       form.value.fullName,
       form.value.mobile,
       form.value.email,
-      form.value.password);
+      form.value.password,
+      form.value.streetAdress,
+      form.value.city,
+      form.value.state,
+      form.value.country,
+      form.value.pinCode,
+      );
   }
 
   ngOnDestroy() {

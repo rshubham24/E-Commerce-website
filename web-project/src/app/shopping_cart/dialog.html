@@ -3,7 +3,7 @@
   <p>{{ this.userName }}</p>
   <p>{{ this.streetAdress }}, {{ this.citye }},</p>
   <p>{{ this.statee }}, {{ this.countrye }}, {{ this.pinCodee }}</p>
-  <mat-dialog-actions>
+  <mat-dialog-actions align = "end" >
     <button mat-raised-button (click) = "onNoClick('original')" style="color: rgb(1, 66, 92);background-color: rgba(198, 227, 240, 0.733);">Place Order</button>
   </mat-dialog-actions>
 </div>
@@ -69,9 +69,9 @@
         >
       <mat-error *ngIf = "pinCode.invalid">Please enter valid pin code.</mat-error>
     </mat-form-field>
-    <div mat-dialog-actions>
+    <mat-dialog-actions align = "end">
       <button mat-raised-button style="color: rgb(1, 66, 92);
       background-color: rgba(198, 227, 240, 0.733);" type="submit">Place Order</button>
-    </div>
+    </mat-dialog-actions>
   </form>
 </div>

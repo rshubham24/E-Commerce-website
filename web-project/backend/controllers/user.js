@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 
 const UserRetailer = require("../models/user_retailer");
 const UserCustomer = require("../models/user_customer");
+const UserAdmin = require("../models/user_admin");
 
 exports.createUserRetailer = (req, res, next) => {
   bcrypt.hash(req.body.password, 10)

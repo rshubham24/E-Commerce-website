@@ -50,6 +50,12 @@ export class HeaderComponent implements OnInit, OnDestroy{
     }
   }
 
+  redirectToCart() {
+    if(this.customerIsAuthenticated){
+      this.router.navigate(['/shopping_cart/' + this.userId])
+    }
+  }
+
   onLogout() {
     this.authService.logout();
   }

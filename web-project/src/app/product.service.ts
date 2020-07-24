@@ -1,8 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { CartModel } from './shopping_cart.model';
-import { CartIdModel } from './cart_id.model';
+import { AdminModel } from './admin.model';
 import { ProductModel } from './product-model';
 import { map } from 'rxjs/operators';
 import { Subject } from "rxjs";

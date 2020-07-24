@@ -5,6 +5,7 @@ import { CartModel } from '../shopping_cart.model';
 import { ProductService } from '../product.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { CartService } from '../cart.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -54,8 +55,6 @@ export class HomeComponent implements OnInit, OnDestroy{
     };
     this.cartService.addToCart(cartProd);
   }
-
-
 
   ngOnDestroy() {
     this.productsSub.unsubscribe();

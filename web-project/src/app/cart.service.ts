@@ -65,8 +65,10 @@ export class CartService {
     });
   }
 
-  placeOrder(cartItems: CartIdModel[], mobile: string, streetAdress: string, city: string, state: string, country: string, pinCode: number) {
+  placeOrder(cartItems: CartIdModel[], mobile: string, streetAdress: string, city: string, state: string, country: string, pinCode: number, totalPrice: number) {
+    var date = new Date();
     const order: OrderModel = {
+      date: date.getTime(),
       customerId: cartItems[0].customerId,
       customerName: localStorage.getItem("userName"),
       mobile: mobile,
@@ -75,6 +77,7 @@ export class CartService {
       state: state,
       country: country,
       pinCode: pinCode,
+      totalPrice: totalPrice,
       products: cartItems
     };
     return this.http.post("http://localhost:3000/api/order/place", order);
@@ -83,6 +86,7 @@ export class CartService {
   deleteItem(productId: string){
     return this.http.delete("http://localhost:3000/api/cart/delete/" + productId);
   }
+
 
   deleteAllItem(customerId: string) {
     return this.http.delete("http://localhost:3000/api/cart/delete_all/" + customerId);

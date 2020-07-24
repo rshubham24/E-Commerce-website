@@ -1,4 +1,5 @@
-export interface OrderModel {
+export interface OrdersModel {
+  _id: string;
   date: number;
   customerId: string;
   customerName: string;
@@ -10,6 +11,7 @@ export interface OrderModel {
   pinCode: number;
   totalPrice: number;
   products: {
+    _id: string;
     title: string;
     price: number;
     category: string;

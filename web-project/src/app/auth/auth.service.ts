@@ -4,13 +4,13 @@ import { AuthDataCustomer } from './auth-data-customer.model';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
-import { state } from '@angular/animations';
 
 @Injectable({ providedIn: "root" })
 
 export class AuthService {
   private customerIsAuthenticated = false;
   private retailerIsAuthenticated = false;
+  private adminIsAuthenticated = false;
   private token: string;
   private userId: string;
   private tokenTimer: any;
@@ -20,12 +20,13 @@ export class AuthService {
   private city: string;
   private state: string;
   private country: string;
-  private pinCode: number;
+  private pinCode: string;
   private mobile: string;
   private authuserName = new Subject<string>();
   private who: string;
   private authCustomerListener = new Subject<boolean>();
   private authRetailerListener = new Subject<boolean>();
+  private authAdminListener = new Subject<boolean>();
   private authUserId = new Subject<string>();
   private authShopName = new Subject<string>();
 
@@ -41,6 +42,14 @@ export class AuthService {
 
   getRetailerAuth() {
     return this.retailerIsAuthenticated;
+  }
+
+  getAdminAuth() {
+    return this.adminIsAuthenticated;
+  }
+
+  getAuthAdminListener() {
+    return this.authAdminListener.asObservable();
   }
 
   getAuthCustomerListener() {
@@ -86,6 +95,27 @@ export class AuthService {
     }, error => {
       console.log("Unsuccesfull");
     });
+  }
+
+  loginAdmin(email: string, password: string) {
+    const authData = {email: email, password: password};
+    this.http.post<{token: string, expiresIn: number, userName: string}>("http://localhost:3000/api/user/login_admin", authData)
+      .subscribe(response => {
+        const token = response.token;
+        if(token){
+          const expiresInDuration = response.expiresIn;
+          this.setAuthTimer(expiresInDuration);
+          this.adminIsAuthenticated = true;
+          this.userName = response.userName;
+          this.authAdminListener.next(true);
+          this.authuserName.next(response.userName);
+          this.who = "admin";
+          const now = new Date();
+          const expirationDate = new Date(now.getTime() + expiresInDuration*1000);
+          this.saveAuthData(token, expirationDate, null, this.who, this.userName, null, null, null, null, null, null, null);
+          this.router.navigate(['/admin']);
+        }
+      })
   }
 
   loginRetailer(email: string, password: string) {
@@ -136,7 +166,7 @@ export class AuthService {
           this.city = response.city;
           this.state = response.state;
           this.country = response.country;
-          this.pinCode = response.pinCode;
+          this.pinCode = response.pinCode.toString();
           this.authCustomerListener.next(true);
           const now = new Date();
           this.authuserName.next(response.userName);
@@ -172,6 +202,8 @@ export class AuthService {
     this.token = null;
     this.customerIsAuthenticated = false;
     this.retailerIsAuthenticated = false;
+    this.adminIsAuthenticated = false;
+    this.authAdminListener.next(false);
     this.authRetailerListener.next(false);
     this.authCustomerListener.next(false);
     clearTimeout(this.tokenTimer);
@@ -209,11 +241,19 @@ export class AuthService {
         this.customerIsAuthenticated = true;
         this.authCustomerListener.next(true);
         this.authRetailerListener.next(false);
+        this.authAdminListener.next(false);
       }
-      else{
+      else if(who === "retailer"){
         this.retailerIsAuthenticated = true;
         this.authRetailerListener.next(true);
         this.authCustomerListener.next(false);
+        this.authAdminListener.next(false);
+      }
+      else{
+        this.adminIsAuthenticated = true;
+        this.authAdminListener.next(true);
+        this.authCustomerListener.next(false);
+        this.authRetailerListener.next(false);
       }
       this.userId = authInformation.userId;
       this.setAuthTimer(expiresIn / 1000);
@@ -236,7 +276,7 @@ export class AuthService {
     };
   }
 
-  private saveAuthData(token: string, expirationDate: Date, userId: string, who: string, userName: string, shopName: string, mobile: string, streetAdress: string, city: string, state: string, country: string, pinCode: number) {
+  private saveAuthData(token: string, expirationDate: Date, userId: string, who: string, userName: string, shopName: string, mobile: string, streetAdress: string, city: string, state: string, country: string, pinCode: string) {
     localStorage.setItem("token", token);
     localStorage.setItem("expiration", expirationDate.toISOString());
     localStorage.setItem("userId", userId);
@@ -248,7 +288,7 @@ export class AuthService {
     localStorage.setItem("city", city);
     localStorage.setItem("state", state);
     localStorage.setItem("country", country);
-    localStorage.setItem("pinCode", pinCode.toString());
+    localStorage.setItem("pinCode", pinCode);
   }
 
 }

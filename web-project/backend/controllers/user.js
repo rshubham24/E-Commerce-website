@@ -139,3 +139,39 @@ exports.loginCustomer = (req, res, next) => {
       });
     });
 };
+
+exports.loginAdmin = (req, res, next) => {
+  let fetchedUser;
+  UserAdmin.findOne({ email: req.body.email })
+    .then(user => {
+      if(!user) {
+        res.status(401).json({
+          message: "Invalid authentication credentials!"
+        });
+      }
+      fetchedUser = user;
+      return bcrypt.compare(req.body.password, user.password);
+    })
+    .then(result => {
+      if(!result) {
+        return res.status(401).json({
+          message: "Auth Failed"
+        });
+      }
+      const token = jwt.sign(
+        { email: fetchedUser.email, userId: fetchedUser._id },
+        "Divyanhu Abhimanyu",
+        {expiresIn: "4h"}
+      );
+      res.status(200).json({
+        token: token,
+        expiresIn: 14400,
+        userName: fetchedUser.fullName
+      });
+    })
+    .catch(err => {
+      return res.status(401).json({
+        message: "Auth Failed"
+      });
+    });
+};

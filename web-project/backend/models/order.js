@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const orderSchema = mongoose.Schema({
+  date: { type: Number, required: true },
   customerId: { type: String, required: true },
   customerName: { type: String, required: true },
   mobile: { type: String, required: true },
@@ -9,6 +10,7 @@ const orderSchema = mongoose.Schema({
   state: { type: String, required: true },
   country: {type: String, required: true},
   pinCode: {type: Number, required: true},
+  totalPrice: {type: Number, required: true},
   products: [{
     title: { type: String, required: true },
     price: { type: Number, required: true },

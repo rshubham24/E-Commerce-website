@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit, OnDestroy{
   customerIsAuthenticated = false;
   retailerIsAuthenticated = false;
+  adminIsAuthenticated = false;
+  private authAdminListenerSub: Subscription;
   private authCustomerListenerSub: Subscription;
   private authRetailerListenerSub: Subscription;
   private authUserName: Subscription;
@@ -27,6 +29,10 @@ export class HeaderComponent implements OnInit, OnDestroy{
     this.userId = localStorage.getItem("userId");
     this.customerIsAuthenticated = this.authService.getCustomerAuth();
     this.retailerIsAuthenticated = this.authService.getRetailerAuth();
+    this.adminIsAuthenticated = this.authService.getAdminAuth();
+    this.authAdminListenerSub = this.authService.getAuthAdminListener().subscribe(isAuthenticated => {
+      this.adminIsAuthenticated = isAuthenticated;
+    })
     this.authCustomerListenerSub = this.authService.getAuthCustomerListener().subscribe(isAuthenticated => {
       this.customerIsAuthenticated = isAuthenticated;
     });
@@ -64,6 +70,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
     this.authCustomerListenerSub.unsubscribe();
     this.authRetailerListenerSub.unsubscribe();
     this.authUserName.unsubscribe();
+    this.authAdminListenerSub.unsubscribe();
     this.authUserId.unsubscribe();
   }
 

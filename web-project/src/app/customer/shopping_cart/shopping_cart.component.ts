@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Params, ActivatedRoute } from '@angular/router';
+import { Params, ActivatedRoute, Router } from '@angular/router';
 import { Subscription, from } from 'rxjs';
-import { CartIdModel } from '../cart_id.model';
+import { CartIdModel } from '../../cart_id.model';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { CartService } from '../cart.service';
+import { CartService } from '../../cart.service';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -20,7 +20,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy{
   cartItems: CartIdModel[] = [];
   private totalSub: Subscription;
 
-  constructor(public route: ActivatedRoute, public cartService: CartService, public dialog: MatDialog) {}
+  constructor(public route: ActivatedRoute, public router: Router, public cartService: CartService, public dialog: MatDialog) {}
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -100,7 +100,8 @@ export class ShoppingCartComponent implements OnInit, OnDestroy{
         check.value.city,
         check.value.state,
         check.value.country,
-        check.value.pinCode
+        check.value.pinCode,
+        this.total
         )
         .subscribe(response => {
           this.isLoading = true;
@@ -108,6 +109,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy{
             this.cartService.getCartItem(this.customerId);
           }, () => {
             this.isLoading = false;
+            this.router.navigate(['/customer_orders/' + this.customerId]);
           });
         });
     }
@@ -120,6 +122,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy{
         localStorage.getItem("state"),
         localStorage.getItem("country"),
         +localStorage.getItem("pinCode"),
+        this.total
         )
         .subscribe(response => {
           this.isLoading = true;
@@ -127,6 +130,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy{
             this.cartService.getCartItem(this.customerId);
           }, () => {
             this.isLoading = false;
+            this.router.navigate(['/customer_orders/' + this.customerId]);
           });
         });
       }

@@ -10,7 +10,7 @@
     <li>
       <button class = "button" mat-button [matMenuTriggerFor]="menu_customer" *ngIf = "customerIsAuthenticated">{{ userName }}</button>
       <mat-menu #menu_customer="matMenu">
-        <button mat-menu-item>My Orders</button>
+        <a [routerLink] = "['/customer_orders/', userId]"><button mat-menu-item>My Orders</button></a>
         <button mat-menu-item (click) = "onLogout()">Logout</button>
       </mat-menu>
     </li>
@@ -22,14 +22,22 @@
       </mat-menu>
     </li>
     <li>
-      <button class = "button" mat-button [matMenuTriggerFor]="login" *ngIf = "!customerIsAuthenticated && !retailerIsAuthenticated">Login</button>
-      <mat-menu #login="matMenu">
-        <a routerLink = "/login_customer"><button mat-menu-item>Login as Customer</button></a>
-        <a routerLink = "/login_retailer"><button mat-menu-item>Login as Retailer</button></a>
+      <button class = "button" mat-button [matMenuTriggerFor]="menu_admin"  *ngIf = "adminIsAuthenticated">{{ userName }}</button>
+      <mat-menu #menu_admin="matMenu">
+        <a routerLink = "/admin" ><button mat-menu-item>Manage Orders</button></a>
+        <button mat-menu-item (click) = "onLogout()" >Logout</button>
       </mat-menu>
     </li>
     <li>
-      <button class = "button" mat-button [matMenuTriggerFor]="signup" *ngIf = "!customerIsAuthenticated && !retailerIsAuthenticated">Signup</button>
+      <button class = "button" mat-button [matMenuTriggerFor]="login" *ngIf = "!customerIsAuthenticated && !retailerIsAuthenticated && !adminIsAuthenticated">Login</button>
+      <mat-menu #login="matMenu">
+        <a routerLink = "/login_customer"><button mat-menu-item>Login as Customer</button></a>
+        <a routerLink = "/login_retailer"><button mat-menu-item>Login as Retailer</button></a>
+        <a routerLink = "/login_admin"><button mat-menu-item>Login as Admin</button></a>
+      </mat-menu>
+    </li>
+    <li>
+      <button class = "button" mat-button [matMenuTriggerFor]="signup" *ngIf = "!customerIsAuthenticated && !retailerIsAuthenticated && !adminIsAuthenticated">Signup</button>
       <mat-menu #signup="matMenu">
         <a routerLink = "/signup_customer"><button mat-menu-item>Signup as Customer</button></a>
         <a routerLink = "/signup_retailer"><button mat-menu-item>Signup as Retailer</button></a>

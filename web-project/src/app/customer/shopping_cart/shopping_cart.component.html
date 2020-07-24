@@ -1,36 +1,29 @@
 <mat-spinner [diameter] = "70" *ngIf="isLoading"></mat-spinner>
 <p class = "available" *ngIf = "!isLoading && cartItems.length <= 0"> No Items Available in Cart! </p>
-<div *ngIf = "!isLoading && cartItems.length > 0" >
-  <table class = "main" >
-    <tr>
-      <th style="width: 10%;">No.</th>
-      <th>Product</th>
-      <th>Price</th>
-      <th class = "quant">Quantity</th>
-      <th></th>
-    </tr>
-    <tr *ngFor="let item of cartItems; let i = index">
-      <td>{{ i+1 }}</td>
-      <td>{{ item.title }}</td>
-      <td total = "total+item.price*item.quantity">₹ {{ item.price*item.quantity }}</td>
-      <td><button (click) = "onUpdateMinus(item)" mat-mini-fab style="margin-right: 26%;color: rgb(1, 66, 92);background-color: rgba(198, 227, 240, 0.733);"><mat-icon>remove</mat-icon></button>{{ item.quantity }}<button (click) = "onUpdateAdd(item)" style="margin-left: 26%;color: rgb(1, 66, 92);background-color: rgba(198, 227, 240, 0.733);" mat-mini-fab><mat-icon>add</mat-icon></button></td>
-      <td class = "edit"><button class = "delete" mat-fab (click) = "onDelete(item)"><mat-icon>delete</mat-icon></button></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td style = "font-weight:1000">
-        Total
-      </td>
-      <td style = "font-weight:1000">
-        {{ total }}
-      </td>
-    </tr>
-  </table>
-</div>
-<mat-card style="margin-top: 20px; margin-left: 68px; width: 50%; box-shadow: none;" *ngIf = "!isLoading && cartItems.length > 0" >
-    <button mat-raised-button (click) = "clearCart()" style ="margin-right: 40px; width: 30%; height: 45px">Clear Cart</button>
-    <button mat-raised-button style="width: 30%; height: 45px" (click) = "openDialog()">Place Order</button>
-</mat-card>
 
+<div *ngIf = "!isLoading && cartItems.length > 0">
+  <mat-card style="margin-left: 80px; margin-bottom: 60px ;border: 0.001px solid rgb(1, 66, 92); padding-bottom: 60px; margin-right: 80px; margin-top: 60px;">
+    <mat-card-header style="justify-content: center; padding-top: 15px; padding-bottom: 40px; font-size: 25px; font-weight: 500;">
+      Shopping Cart
+    </mat-card-header>
+    <mat-card-content *ngFor = "let item of cartItems">
+      <mat-card style="padding-top: 20px; background-color: rgba(217, 235, 235, 0.267); margin-left: 15px; margin-right: 15px; margin-bottom: 30px;">
+        <mat-card-header>
+          <div mat-card-avatar><img  class = "image" src ="{{ item.imageUrl }}"></div>
+          <div style="padding-left: 40px;"><p><b>Product :</b> &nbsp;&nbsp;&nbsp;{{ item.title }}</p><p><b>Quantity :</b> &nbsp;&nbsp;{{ item.quantity }}</p><p><b>Price : </b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;₹ {{ item.quantity*item.price }}</p></div>
+          <div>
+            <button (click) = "onUpdateMinus(item)" mat-mini-fab class = "minus"><mat-icon>remove</mat-icon></button>
+            <div class = "quantity">{{ item.quantity }}</div>
+            <button (click) = "onUpdateAdd(item)" mat-mini-fab class = "add" ><mat-icon>add</mat-icon></button>
+          </div>
+          <div style="position: absolute; right: 60px; top: 32px"><button class = "delete" mat-fab (click) ="onDelete(item)" ><mat-icon>delete</mat-icon></button></div>
+        </mat-card-header>
+      </mat-card>
+    </mat-card-content>
+    <mat-card-header>
+      <button mat-raised-button (click) = "clearCart()" class = "clear">Clear Cart</button>
+      <button mat-raised-button (click) = "openDialog()" class = "place">Place Order</button>
+      <div style = "position: absolute; right: 40px; padding-top: 30px; font-size: 20px; font-weight: 500;">Total Price : ₹ {{ total}}</div>
+    </mat-card-header>
+  </mat-card>
+</div>

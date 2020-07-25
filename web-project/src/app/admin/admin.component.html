@@ -1,0 +1,22 @@
+<mat-spinner [diameter] = "70" *ngIf="isLoading"></mat-spinner>
+<p class = "available" *ngIf = "!isLoading && orders.length <= 0"> No Order Placed! </p>
+<div *ngIf = "!isLoading">
+  <div *ngFor = "let order of orders">
+    <mat-card style="margin-left: 80px; border: 0.001px solid rgb(1, 66, 92); padding-bottom: 60px; margin-right: 80px; margin-top: 60px;">
+      <mat-card-header style="padding-bottom: 40px; font-size: 18px;"><div style="font-weight: 400; padding-top: 20px;">Order Id : <b class = "id">{{ order._id }}</b></div><div style="font-weight: 400; padding-top: 20px; position: absolute; right: 60px;">Order Date : {{ date(order.date) }}</div></mat-card-header>
+        <mat-card-content *ngFor = "let prod of order.products; let i = index">
+          <mat-card style="background-color: rgba(217, 235, 235, 0.267); margin-left: 15px; margin-bottom: 30px;margin-right: 15px;">
+            <mat-card-header>
+              <div mat-card-avatar><img  class = "image" src ="{{ prod.imageUrl }}"></div>
+              <div style="padding-left: 40px;"><p><b>Product :</b> &nbsp;&nbsp;&nbsp;{{ prod.title }}</p><p><b>Quantity :</b> &nbsp;&nbsp;{{prod.quantity}}</p><p><b>Price : </b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;₹ {{prod.quantity*prod.price}}</p></div>
+          </mat-card-header>
+        </mat-card>
+      </mat-card-content>
+      <mat-card-header style="padding-top: 25px;">
+        <div style="position: absolute; right: 60px;font-size: 18px;"><b>Total Price : </b>&nbsp;₹ {{ order.totalPrice }}</div>
+      </mat-card-header>
+    </mat-card>
+  </div>
+</div>
+
+

@@ -22,7 +22,7 @@ exports.addToCart = (req, res, next) => {
     })
     .catch(err => {
       res.status(500).json({
-        message: 'Product Not Added'
+        message: 'Unable to add the product to the cart'
       });
     });
 };
@@ -50,7 +50,7 @@ exports.deleteItem = (req, res, next) => {
     }
     else{
       res.status(401).json({
-        message: "Not authorized!"
+        message: "Unable to delete Item!"
       });
     }
   });
@@ -65,7 +65,7 @@ exports.deleteAllItem = (req, res, next) => {
     }
     else{
       res.status(401).json({
-        message: "Not authorized"
+        message: "Unable to delete Items"
       });
     }
   });

@@ -18,11 +18,7 @@ export class CartService {
   constructor(private http: HttpClient, private router: Router) {}
 
   addToCart(prod: CartModel) {
-    this.http.post("http://localhost:3000/api/cart/add", prod).subscribe(response => {
-      console.log(response);
-    }), error => {
-      console.log("product not added to cart");
-    }
+    return this.http.post("http://localhost:3000/api/cart/add", prod);
   }
 
   getCartItem(customerId: string) {

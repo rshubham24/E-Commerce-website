@@ -20,6 +20,16 @@ export class OrdersService {
       });
   }
 
+  getAllOrders() {
+    this.http.get<{message: string, orders: any}>("http://localhost:3000/api/order/get_all_orders")
+      .subscribe(response => {
+        console.log(response.orders);
+        console.log("gvgdtd");
+        this.orders = response.orders;
+        this.ordersListener.next([...this.orders]);
+      });
+  }
+
   deleteOrderItem(productId: string, orderId: string, totalPrice: number) {
     const data = {
       productId: productId,

@@ -7,6 +7,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatTableModule} from '@angular/material/table';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatCardModule} from '@angular/material/card';
 import {MatMenuModule} from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
@@ -24,14 +25,16 @@ import { DialogElementsDialog } from './customer/shopping_cart/shopping_cart.com
 import { HeaderComponent } from './header/header.component';
 import { SignupCustomerComponent } from './auth/signup_customer/signup_customer.component';
 import { FormsModule } from '@angular/forms';
+import { ErrorInterceptor } from './error-interceptor';
 import { HomeComponent } from './home/home.component';
 import { CustomerOrderComponent } from './customer/orders/orders.component';
 import { AdminComponent } from './admin/admin.component';
 import { CommonModule } from '@angular/common';
+import { ErrorComponent } from './error/error.component';
 import { LoginCustomerComponent } from './auth/login_customer/login_customer.component';
 import { LoginRetailerComponent } from './auth/login_retailer/login_retailer.component';
 import { SignupRetailerComponent } from './auth/signup_retailer/signup_retailer.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { EditProductComponent } from './retailer/edit_posts/edit_product.component';
 import { ShoppingCartComponent } from './customer/shopping_cart/shopping_cart.component';
 import { ManageProductsComponent } from "./retailer/manage_products/manage_products.component";
@@ -44,6 +47,7 @@ import { NewProductComponent } from "./retailer/new_product/new_product.componen
     HomeComponent,
     ManageProductsComponent,
     SignupCustomerComponent,
+    ErrorComponent,
     LoginCustomerComponent,
     LoginRetailerComponent,
     LoginAdminComponent,
@@ -65,6 +69,7 @@ import { NewProductComponent } from "./retailer/new_product/new_product.componen
     MatDialogModule,
     MatInputModule,
     MatToolbarModule,
+    MatSnackBarModule,
     MatSelectModule,
     BrowserAnimationsModule,
     MatExpansionModule,
@@ -78,7 +83,10 @@ import { NewProductComponent } from "./retailer/new_product/new_product.componen
     FormsModule,
     MatMenuModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+  ],
+  bootstrap: [AppComponent],
+  entryComponents: [ErrorComponent]
 })
 export class AppModule { }

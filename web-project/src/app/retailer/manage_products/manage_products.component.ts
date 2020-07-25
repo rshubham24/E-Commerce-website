@@ -3,6 +3,7 @@ import { ProductModel } from 'src/app/product-model';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { RetailerService } from '../retailer.service';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -12,13 +13,15 @@ import { RetailerService } from '../retailer.service';
 })
 
 export class ManageProductsComponent implements OnInit, OnDestroy{
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
   products: ProductModel[] = [];
   private productsSub: Subscription;
   private authUserId: Subscription;
   userId: string;
   isLoading = false;
 
-  constructor(private authService: AuthService, private retailerService: RetailerService) {}
+  constructor(private authService: AuthService, private retailerService: RetailerService, private snackBar: MatSnackBar) {}
 
   ngOnInit() {
     this.isLoading = true;
@@ -41,6 +44,11 @@ export class ManageProductsComponent implements OnInit, OnDestroy{
   onDelete(productId: string) {
     this.isLoading = true;
     this.retailerService.deleteProduct(productId).subscribe(() => {
+      this.snackBar.open('Item removed!!', 'Ok', {
+        duration: 1000,
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,
+      });
       this.retailerService.getProductsList(this.userId);
     }, () => {
       this.isLoading = false;

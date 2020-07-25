@@ -1,47 +1,47 @@
-button {
-  color: rgb(1, 66, 92);
-  background-color: rgba(198, 227, 240, 0.733);
-}
-
 mat-spinner {
   margin: auto;
 }
 
-.new {
-  margin-left: 100px;
-  padding-top: 20px;
+.image {
+  margin-top: 30%;
+  margin-bottom: 40%;
+  width: 70px;
 }
 
-table {
-  margin-top: 40px;
-  margin-left: 100px;
-  width: 80%;
-  font-weight: 30px;
-}
-
-table, th, td {
-  border: 3px solid rgb(1, 66, 92);
-  border-collapse: collapse;
-}
-
-th, td {
-  padding: 15px;
-}
-
-th {
-  background-color: rgba(54, 103, 126, 0.733);
-  text-align: left;
-}
-
-.editButton {
-  width: 100px;
+.delete {
+  background-color: rgba(224, 8, 8, 0.993);
 }
 
 .edit {
-  width: 15%;
-  text-align: center;
+  background-color: rgba(0, 74, 184, 0.801);
+  position: absolute;
+  right: 230px;
+  top: 34px;
 }
 
-table {
-  border-spacing: 5px;
+.add {
+  margin-top: 25px;
+  margin-left: 80px;
+  width: 180px;
+  height: 46px;
+  background-color: rgba(50, 150, 3, 0.986);
+  border-radius: 25px;
+  color: white;
+}
+
+.quantity {
+  position: absolute;
+  right: 260px;
+  top: 55px;
+}
+
+mat-card {
+  border-radius: 25px;
+}
+
+.available {
+  margin-top: 250px;
+  text-align: center;
+  font-weight: 400;
+  font-size: xx-large;
 }

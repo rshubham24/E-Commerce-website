@@ -1,23 +1,23 @@
 <mat-spinner [diameter] = "70" *ngIf="isLoading"></mat-spinner>
 <div class = "new" *ngIf = "!isLoading">
-  <a routerLink = "/new"><button mat-button>New Product</button></a>
+  <a routerLink = "/new"><button class = "add" mat-raised-button>Add New Product</button></a>
 </div>
-
-<div *ngIf = "!isLoading">
-  <table>
-    <tr>
-      <th style="width: 10%;">No.</th>
-      <th>Title</th>
-      <th>Price</th>
-      <th></th>
-      <th></th>
-    </tr>
-    <tr *ngFor="let prod of products; let i = index">
-      <td>{{ i+1 }}</td>
-      <td>{{ prod.title }}</td>
-      <td>₹ {{ prod.price }}</td>
-      <td class = "edit"><button style="color: rgb(1, 66, 92);background-color: rgba(198, 227, 240, 0.733);" mat-mini-fab (click) = "onEdit(prod.id)"><mat-icon>edit</mat-icon></button></td>
-      <td class = "edit"><button style="color: rgb(1, 66, 92);background-color: rgba(198, 227, 240, 0.733);" mat-mini-fab (click) = "onDelete(prod.id)"><mat-icon>delete</mat-icon></button></td>
-    </tr>
-  </table>
+<div *ngIf = "!isLoading && products.length > 0">
+  <mat-card style="margin-left: 80px; margin-bottom: 60px ;border: 0.001px solid rgb(1, 66, 92); padding-bottom: 60px; margin-right: 80px; margin-top: 45px;">
+    <mat-card-header style="justify-content: center; padding-top: 15px; padding-bottom: 40px; font-size: 25px; font-weight: 500;">
+      My Products
+    </mat-card-header>
+    <mat-card-content *ngFor = "let prod of products">
+      <mat-card style="padding-top: 20px; background-color: rgba(217, 235, 235, 0.267); margin-left: 15px; margin-right: 15px; margin-bottom: 30px;">
+        <mat-card-header>
+          <div mat-card-avatar><img  class = "image" src ="{{ prod.imageUrl }}"></div>
+          <div style="padding-left: 40px;"><p><b>Product :</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ prod.title }}</p><p><b>Category :</b>&nbsp;&nbsp; {{ prod.category }}</p><p><b>Price : </b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;₹ {{ prod.price }}</p></div>
+          <div>
+            <button (click) = "onEdit(prod.id)" mat-fab class = "edit" ><mat-icon>edit</mat-icon></button>
+          </div>
+          <div style="position: absolute; right: 60px; top: 34px; "><button class = "delete" mat-fab (click) ="onDelete(prod.id)" ><mat-icon>delete</mat-icon></button></div>
+        </mat-card-header>
+      </mat-card>
+    </mat-card-content>
+  </mat-card>
 </div>

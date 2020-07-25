@@ -24,7 +24,7 @@ exports.createUserRetailer = (req, res, next) => {
         })
         .catch(err => {
           res.status(500).json({
-              message: "Invalid authentication credentials!"
+              message: "This Email adress has already been used. Please use another email adress!"
           });
         });
     });
@@ -53,7 +53,7 @@ exports.createUserCustomer = (req, res, next) => {
         })
         .catch(err => {
           res.status(500).json({
-              message: "Invalid authentication credentials!"
+              message: "This Email adress has already been used. Please use another email adress!"
           });
         });
     });
@@ -92,7 +92,7 @@ exports.loginRetailer = (req, res, next) => {
     })
     .catch(err => {
       return res.status(401).json({
-        message: "Auth Failed"
+        message: "Invalid Credentials"
       });
     });
 };
@@ -135,7 +135,7 @@ exports.loginCustomer = (req, res, next) => {
     })
     .catch(err => {
       return res.status(401).json({
-        message: "Auth Failed"
+        message: "Invalid Credentials"
       });
     });
 };
@@ -171,7 +171,7 @@ exports.loginAdmin = (req, res, next) => {
     })
     .catch(err => {
       return res.status(401).json({
-        message: "Auth Failed"
+        message: "Invalid Credentials"
       });
     });
 };

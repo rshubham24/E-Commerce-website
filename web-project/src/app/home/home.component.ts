@@ -6,6 +6,7 @@ import { ProductService } from '../product.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { CartService } from '../cart.service';
 import { NgForm } from '@angular/forms';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home',
@@ -14,13 +15,15 @@ import { NgForm } from '@angular/forms';
 })
 
 export class HomeComponent implements OnInit, OnDestroy{
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
   products: ProductModel[] = [];
   isLoading = false;
   private productsSub: Subscription;
   private mode = "home";
   customerid: string;
 
-  constructor(public productService: ProductService, public route: ActivatedRoute, public cartService: CartService) {}
+  constructor(public productService: ProductService, public route: ActivatedRoute, public cartService: CartService, private snackBar: MatSnackBar) {}
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -53,7 +56,20 @@ export class HomeComponent implements OnInit, OnDestroy{
       customerId: this.customerid,
       quantity: 1
     };
-    this.cartService.addToCart(cartProd);
+    this.cartService.addToCart(cartProd)
+      .subscribe(response => {
+        this.snackBar.open('Item added to the Cart!!', 'Ok', {
+          duration: 1000,
+          horizontalPosition: this.horizontalPosition,
+          verticalPosition: this.verticalPosition,
+        });
+      }), error => {
+        this.snackBar.open('Unable to add the Cart!!', 'Ok', {
+          duration: 1000,
+          horizontalPosition: this.horizontalPosition,
+          verticalPosition: this.verticalPosition,
+        });
+      }
   }
 
   ngOnDestroy() {

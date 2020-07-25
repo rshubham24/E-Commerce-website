@@ -3,8 +3,10 @@ import { Params, ActivatedRoute, Router } from '@angular/router';
 import { Subscription, from } from 'rxjs';
 import { CartIdModel } from '../../cart_id.model';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+
 import { CartService } from '../../cart.service';
 import { NgForm } from '@angular/forms';
+import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-cart',
@@ -13,6 +15,8 @@ import { NgForm } from '@angular/forms';
 })
 
 export class ShoppingCartComponent implements OnInit, OnDestroy{
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
   private customerId: string;
   isLoading = false;
   total = 0;
@@ -20,7 +24,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy{
   cartItems: CartIdModel[] = [];
   private totalSub: Subscription;
 
-  constructor(public route: ActivatedRoute, public router: Router, public cartService: CartService, public dialog: MatDialog) {}
+  constructor(public route: ActivatedRoute, public router: Router, public cartService: CartService, private snackBar: MatSnackBar,public dialog: MatDialog) {}
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -58,6 +62,11 @@ export class ShoppingCartComponent implements OnInit, OnDestroy{
     this.total = this.total - item.price*item.quantity;
     this.isLoading = true;
     this.cartService.deleteItem(item.id).subscribe(() => {
+      this.snackBar.open('Item removed from the Cart!!', 'Ok', {
+        duration: 1000,
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,
+      });
       this.cartService.getCartItem(this.customerId);
     }, () => {
       this.isLoading = false;
@@ -67,6 +76,11 @@ export class ShoppingCartComponent implements OnInit, OnDestroy{
   clearCart() {
     this.isLoading = true;
     this.cartService.deleteAllItem(this.customerId).subscribe(() => {
+      this.snackBar.open('Cart Cleared!!', 'Ok', {
+        duration: 1000,
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,
+      });
       this.cartService.getCartItem(this.customerId);
     }, () => {
       this.isLoading = false;
@@ -91,6 +105,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy{
     this.cartService.updateItem(item);
   }
 
+
   placeOrder(check: NgForm) {
     if(check){
       this.cartService.placeOrder(
@@ -104,11 +119,14 @@ export class ShoppingCartComponent implements OnInit, OnDestroy{
         this.total
         )
         .subscribe(response => {
-          this.isLoading = true;
           this.cartService.deleteAllItem(this.customerId).subscribe(() => {
             this.cartService.getCartItem(this.customerId);
+            this.snackBar.open('Order Placed!!', 'Ok', {
+              duration: 1000,
+              horizontalPosition: this.horizontalPosition,
+              verticalPosition: this.verticalPosition,
+            });
           }, () => {
-            this.isLoading = false;
             this.router.navigate(['/customer_orders/' + this.customerId]);
           });
         });
@@ -125,11 +143,14 @@ export class ShoppingCartComponent implements OnInit, OnDestroy{
         this.total
         )
         .subscribe(response => {
-          this.isLoading = true;
           this.cartService.deleteAllItem(this.customerId).subscribe(() => {
             this.cartService.getCartItem(this.customerId);
+            this.snackBar.open('Order Placed!!', 'Ok', {
+              duration: 1000,
+              horizontalPosition: this.horizontalPosition,
+              verticalPosition: this.verticalPosition,
+            });
           }, () => {
-            this.isLoading = false;
             this.router.navigate(['/customer_orders/' + this.customerId]);
           });
         });

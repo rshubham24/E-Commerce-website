@@ -72,7 +72,7 @@ export class AuthService {
       console.log(response);
       this.router.navigate(['/login_retailer']);
     }, error => {
-      console.log("Unsuccesfull");
+      this.authRetailerListener.next(false);
     });
   }
 
@@ -93,7 +93,7 @@ export class AuthService {
       console.log(response);
       this.router.navigate(['/login_customer']);
     }, error => {
-      console.log("Unsuccesfull");
+      this.authCustomerListener.next(false);
     });
   }
 
@@ -115,7 +115,9 @@ export class AuthService {
           this.saveAuthData(token, expirationDate, null, this.who, this.userName, null, null, null, null, null, null, null);
           this.router.navigate(['/admin']);
         }
-      })
+      }, error => {
+        this.authAdminListener.next(false);
+      });
   }
 
   loginRetailer(email: string, password: string) {

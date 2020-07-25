@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, ɵConsole} from '@angular/core';
 import { OrdersService } from '../../orders.service';
 import { OrdersModel } from '../../orders.model';
 import { Subscription } from 'rxjs';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-orders',
@@ -10,12 +11,14 @@ import { Subscription } from 'rxjs';
 })
 
 export class CustomerOrderComponent implements OnInit, OnDestroy{
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
   orders: OrdersModel[] = [];
   private ordersSub: Subscription;
   customerId: string;
   isLoading = false;
 
-  constructor(private ordersService: OrdersService) {}
+  constructor(private ordersService: OrdersService, private snackBar: MatSnackBar) {}
 
   ngOnInit() {
     this.isLoading = true;
@@ -37,12 +40,16 @@ export class CustomerOrderComponent implements OnInit, OnDestroy{
   }
 
   onDeleteItem(prodId: string, orderId: string, prodPrice: number, totalPrice: number, prod: any){
-    this.isLoading = true;
     if(prod.length <= 1){
       return this.cancelOrder(orderId);
     }
     this.ordersService.deleteOrderItem(prodId, orderId, totalPrice - prodPrice)
     .subscribe(() => {
+      this.snackBar.open('Item Removed!!', 'Ok', {
+        duration: 1000,
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,
+      });
       this.ordersService.getOrdersList(this.customerId);
     }, () => {
       this.isLoading = false;
@@ -50,8 +57,12 @@ export class CustomerOrderComponent implements OnInit, OnDestroy{
   }
 
   cancelOrder(orderId: string) {
-    this.isLoading = true;
     this.ordersService.cancelOrder(orderId).subscribe(() => {
+      this.snackBar.open('Order Canceled!!', 'Ok', {
+        duration: 1000,
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,
+      });
       this.ordersService.getOrdersList(this.customerId);
     }, () => {
       this.isLoading = false;

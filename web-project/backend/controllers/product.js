@@ -6,6 +6,11 @@ exports.getProducts = (req, res, next) => {
       message: "Products Fetched Successfully",
       products: documents
     });
+  })
+  .catch(error => {
+    res.status(500).json({
+      message: "Fetching products failed!"
+    });
   });
 };
 
@@ -32,7 +37,7 @@ exports.delete = (req, res, next) => {
     }
     else{
       res.status(401).json({
-        message: "Not authorized!"
+        message: "Unable to delete!"
       });
     }
   })
@@ -66,7 +71,7 @@ exports.updateProduct = (req, res, next) => {
   })
   .catch(error => {
     res.status(500).json({
-      message: "Couldn't update the product"
+      message: "Unable to update the product"
     });
   });
 };

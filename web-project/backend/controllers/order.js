@@ -24,7 +24,7 @@ exports.place = (req, res, next) => {
     })
     .catch(err => {
       res.status(500).json({
-        message: 'Order Not Added'
+        message: 'Unable to place the order'
       });
     });
 };
@@ -39,7 +39,7 @@ exports.getCustomerOrders = (req, res, next) => {
   })
   .catch(error => {
     res.status(500).json({
-      mesage: "Fetchong ordedrs failed!"
+      mesage: "Unable to fetch orders!"
     });
   });
 };
@@ -59,13 +59,13 @@ exports.update = (req, res, next) => {
         })
         .catch(error => {
           res.status(500).json({
-            message: "Couldn't update the product"
+            message: "Unable to update the product"
           });
         });
     })
     .catch(error => {
       res.status(500).json({
-        message: "Couldn't update the order"
+        message: "Unable to update the order"
       });
     });
 };
@@ -78,7 +78,21 @@ exports.cancelOrder = (req, res, next) => {
   })
   .catch(error => {
     res.status(500).json({
-      message: "Couldn't delete the order"
+      message: "Unable to cancel the order"
+    });
+  });
+};
+
+exports.getAllOrders = (req, res, next) => {
+  Order.find().then(documents => {
+    res.status(200).json({
+      message: "Orders fetched successfully!",
+      orders: documents
+    });
+  })
+  .catch(error => {
+    res.status(500).json({
+      message: "Unable to fetch the orders"
     });
   });
 };

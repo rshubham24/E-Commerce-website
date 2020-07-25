@@ -18,7 +18,7 @@ exports.addProduct = (req, res, next) => {
     })
     .catch(err => {
       res.status(500).json({
-        message: 'Product Not Added'
+        message: 'Unable to add the product'
       });
     });
 };

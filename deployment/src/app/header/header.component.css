@@ -1,0 +1,26 @@
+ul {
+  list-style: none;
+  display: flex;
+}
+a {
+  text-decoration: none;
+  color: white;
+}
+
+mat-toolbar {
+  background-color: rgb(1, 66, 92);
+}
+
+.button {
+  color: white;
+
+}
+
+.icon {
+  margin-left: 24px;
+  margin-right: 24px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}

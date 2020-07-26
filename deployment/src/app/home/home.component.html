@@ -1,0 +1,18 @@
+<mat-spinner [diameter] = "70" *ngIf="isLoading"></mat-spinner>
+<mat-grid-list cols = "4" rowHeight = "400px" *ngIf="!isLoading">
+  <mat-grid-tile [colspan] = "1" [rowspan]="1" *ngFor = "let prod of products">
+    <mat-card class = "product" style="margin-bottom: 40px; margin-top: 20px;">
+      <mat-card-header style="justify-content: center; padding-top: 8px; padding-bottom: 20px;">
+        <mat-card-title>{{ prod.title }}</mat-card-title>
+      </mat-card-header>
+      <img mat-card-image src="{{ prod.imageUrl }}" class = "image" >
+      <mat-card-content style="width: 100%;">
+        <p style="text-align: center; font-weight: 500;">
+          ₹ {{ prod.price }}
+        </p>
+          <button id = "my_button" (click) = "addToCart(prod)"  class = "button" mat-raised-button style="width: 216px;">Add To Cart</button>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
+

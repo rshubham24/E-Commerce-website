@@ -1,0 +1,33 @@
+.image {
+  margin-top: 30%;
+  margin-bottom: 40%;
+  width: 70px;
+}
+
+mat-card {
+  border-radius: 25px;
+}
+
+mat-spinner {
+  margin: auto;
+}
+
+b {
+  font-weight: 500;
+}
+
+.delete {
+  background-color: rgba(224, 8, 8, 0.993);
+}
+
+.id {
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.available {
+  margin-top: 250px;
+  text-align: center;
+  font-weight: 400;
+  font-size: xx-large;
+}

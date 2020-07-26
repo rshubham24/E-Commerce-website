@@ -1,0 +1,77 @@
+<h1 mat-dialog-title style="text-align: center;">Select a Delivery Adress</h1>
+<div style="margin-top: 20px;">
+  <p>{{ this.userName }}</p>
+  <p>{{ this.streetAdress }}, {{ this.citye }},</p>
+  <p>{{ this.statee }}, {{ this.countrye }}, {{ this.pinCodee }}</p>
+  <mat-dialog-actions align = "end" >
+    <button mat-raised-button (click) = "onNoClick('original')" style="color: rgb(1, 66, 92);background-color: rgba(198, 227, 240, 0.733);">Place Order</button>
+  </mat-dialog-actions>
+</div>
+<div style="text-align: center; margin-top: 30px;">OR</div>
+<div style="margin-top: 20px;">
+  <form (submit) = "submit(adress)" #adress = "ngForm">
+    <mat-form-field style="width: 100%;">
+      <input
+        matInput
+        type = "text"
+        name = "streetAdress"
+        ngModel
+        placeholder = "Street Adress"
+        #street_adress = "ngModel"
+        required>
+      <mat-error *ngIf = "street_adress">Please enter your name.</mat-error>
+    </mat-form-field>
+    <mat-form-field style="width: 100%;">
+      <input
+        matInput
+        type = "text"
+        name = "city"
+        ngModel
+        placeholder = "City"
+        #city = "ngModel"
+        required
+        >
+      <mat-error *ngIf = "city.invalid">Please enter city name.</mat-error>
+    </mat-form-field>
+    <mat-form-field style="width: 100%;">
+      <input
+        matInput
+        type = "text"
+        name = "state"
+        ngModel
+        placeholder = "State"
+        #state = "ngModel"
+        required
+        >
+      <mat-error *ngIf = "state.invalid">Please enter state name.</mat-error>
+    </mat-form-field>
+    <mat-form-field style="width: 100%;">
+      <input
+        matInput
+        type = "text"
+        name = "country"
+        ngModel
+        placeholder = "Country"
+        #country = "ngModel"
+        required
+        >
+      <mat-error *ngIf = "country.invalid">Please enter country name.</mat-error>
+    </mat-form-field>
+    <mat-form-field style="width: 100%;">
+      <input
+        matInput
+        type = "number"
+        name = "pinCode"
+        ngModel
+        placeholder = "Pin Code"
+        #pinCode = "ngModel"
+        required
+        >
+      <mat-error *ngIf = "pinCode.invalid">Please enter valid pin code.</mat-error>
+    </mat-form-field>
+    <mat-dialog-actions align = "end">
+      <button mat-raised-button style="color: rgb(1, 66, 92);
+      background-color: rgba(198, 227, 240, 0.733);" type="submit">Place Order</button>
+    </mat-dialog-actions>
+  </form>
+</div>

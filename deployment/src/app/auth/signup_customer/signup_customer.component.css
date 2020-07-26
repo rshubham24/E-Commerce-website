@@ -1,0 +1,21 @@
+mat-form-field{
+  width: 100%;
+}
+
+mat-spinner {
+  margin: auto;
+}
+
+mat-card {
+  border: 0.001px solid rgb(1, 66, 92);
+}
+
+.button {
+  color: rgb(1, 66, 92);
+  background-color: rgba(198, 227, 240, 0.733);
+}
+
+.example-section {
+  margin-top: 8px;
+  margin-bottom: 16px;
+}

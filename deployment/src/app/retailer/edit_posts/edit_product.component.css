@@ -1,0 +1,30 @@
+mat-card {
+  margin-top: 20px;
+  border: 0.5px solid rgb(1, 66, 92);
+}
+
+.header {
+  justify-content: center;
+}
+
+mat-form-field{
+  width: 100%;
+  font-size: 16px;
+}
+
+mat-spinner {
+  margin: auto;
+}
+
+.align {
+  text-indent: 4px;
+}
+
+.prefix {
+  font-size: 23px;
+}
+
+.button {
+  color: rgb(1, 66, 92);
+  background-color: rgba(198, 227, 240, 0.733);
+}

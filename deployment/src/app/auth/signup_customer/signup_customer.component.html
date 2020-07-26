@@ -1,0 +1,123 @@
+<mat-spinner [diameter] = "70" *ngIf="isLoading"></mat-spinner>
+<mat-card style="border-radius: 15px; margin-left: 150px; margin-right: 150px;" *ngIf = "!isLoading">
+  <form (submit) = "onSignup(signupForm)" #signupForm = "ngForm">
+    <mat-form-field>
+      <input
+        matInput
+        type = "text"
+        name = "fullName"
+        ngModel
+        placeholder = "Full Name"
+        #fullName = "ngModel"
+        required
+        >
+      <mat-error *ngIf = "fullName.invalid">Please enter your name.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type = "text"
+        name = "mobile"
+        ngModel
+        placeholder = "Mobile Number"
+        #mobile = "ngModel"
+        required
+        minlength = "10"
+        maxlength = "10"
+        >
+      <mat-error *ngIf = "mobile.invalid">Please enter a valid mobile number.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type = "email"
+        name = "email"
+        ngModel
+        placeholder = "E-mail"
+        #emailInput = "ngModel"
+        required
+        email
+        >
+      <mat-error *ngIf = "emailInput.invalid">Please enter a valid Email.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        [type]="showPassword ? 'text' : 'password'"
+        name = "password"
+        ngModel
+        #passwordInput = "ngModel"
+        placeholder = "Password"
+        required
+        >
+      <mat-error *ngIf = "passwordInput.invalid">Please enter a valid Password.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type = "text"
+        name = "streetAdress"
+        ngModel
+        placeholder = "Street Adress"
+        #street_adress = "ngModel"
+        required
+        >
+      <mat-error *ngIf = "street_adress">Please enter your name.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type = "text"
+        name = "city"
+        ngModel
+        placeholder = "City"
+        #city = "ngModel"
+        required
+        >
+      <mat-error *ngIf = "city.invalid">Please enter city name.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type = "text"
+        name = "state"
+        ngModel
+        placeholder = "State"
+        #state = "ngModel"
+        required
+        >
+      <mat-error *ngIf = "state.invalid">Please enter state name.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type = "text"
+        name = "country"
+        ngModel
+        placeholder = "Country"
+        #country = "ngModel"
+        required
+        >
+      <mat-error *ngIf = "country.invalid">Please enter country name.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type = "number"
+        name = "pinCode"
+        ngModel
+        placeholder = "Pin Code"
+        #pinCode = "ngModel"
+        required
+        >
+      <mat-error *ngIf = "pinCode.invalid">Please enter valid pin code.</mat-error>
+    </mat-form-field>
+    <section class="example-section">
+      <mat-checkbox (change) = "showHiddenPassword($event)">Show Password</mat-checkbox>
+    </section>
+    <button
+      mat-raised-button
+      class = "button"
+      type="submit">Signup</button>
+  </form>
+</mat-card>

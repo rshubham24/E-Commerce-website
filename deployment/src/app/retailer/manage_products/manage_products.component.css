@@ -1,0 +1,47 @@
+mat-spinner {
+  margin: auto;
+}
+
+.image {
+  margin-top: 30%;
+  margin-bottom: 40%;
+  width: 70px;
+}
+
+.delete {
+  background-color: rgba(224, 8, 8, 0.993);
+}
+
+.edit {
+  background-color: rgba(0, 74, 184, 0.801);
+  position: absolute;
+  right: 230px;
+  top: 34px;
+}
+
+.add {
+  margin-top: 25px;
+  margin-left: 80px;
+  width: 180px;
+  height: 46px;
+  background-color: rgba(50, 150, 3, 0.986);
+  border-radius: 25px;
+  color: white;
+}
+
+.quantity {
+  position: absolute;
+  right: 260px;
+  top: 55px;
+}
+
+mat-card {
+  border-radius: 25px;
+}
+
+.available {
+  margin-top: 250px;
+  text-align: center;
+  font-weight: 400;
+  font-size: xx-large;
+}
